@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Folder Include="Features\LoanContract\Commands\" />
-    <Folder Include="Features\LoanContract\Services\" />
     <Folder Include="Features\LoanContract\Queries\" />
     <Folder Include="Features\LoanGuarantor\Commands\" />
     <Folder Include="Features\LoanGuarantor\Queries\" />
