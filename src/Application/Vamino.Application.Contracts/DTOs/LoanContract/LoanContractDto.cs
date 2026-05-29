@@ -1,4 +1,6 @@
-﻿namespace Vamino.Application.Contracts.DTOs.LoanContract;
+﻿using Vamino.Domain.LoanContractAgg.Enums;
+
+namespace Vamino.Application.Contracts.DTOs.LoanContract;
 
 public record LoanContractDto(
     int Id,
@@ -6,4 +8,5 @@ public record LoanContractDto(
     int BorrowerId,
     decimal Amount,
     string? Description,
+    LoanStatus LoanStatus,
     DateTime CreatedAt);

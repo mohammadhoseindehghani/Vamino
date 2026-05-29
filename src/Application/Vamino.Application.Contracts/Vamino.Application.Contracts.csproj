@@ -10,4 +10,8 @@
     <Folder Include="Utilities\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Domain\Vamino.Domain\Vamino.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
