@@ -1,5 +1,4 @@
-﻿using System.Security.AccessControl;
-using Vamino.Domain._Common;
+﻿using Vamino.Domain._Common;
 using Vamino.Domain.LoanContractAgg.Enums;
 using Vamino.Domain.LoanGuarantorAgg.Entities;
 using Vamino.Domain.UserAgg.Entities;
@@ -16,5 +15,4 @@ public class LoanContract : BaseEntity
 
     public User Borrower { get; set; }
     public ICollection<LoanGuarantor> LoanGuarantors { get; set; } = new List<LoanGuarantor>();
-    
 }

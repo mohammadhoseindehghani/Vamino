@@ -13,6 +13,6 @@ public class User : BaseEntity
     public string PhoneNumber { get; set; }
     public string Email { get; set; }
     public decimal Balance { get; set; }
-    public ICollection<LoanContract> BorrowedContracts { get; set; } = new List<LoanContract>();
+    public ICollection<LoanContract> BorrowerContracts { get; set; } = new List<LoanContract>();
     public ICollection<LoanGuarantor> GuaranteedContracts { get; set; } = new List<LoanGuarantor>();
 }

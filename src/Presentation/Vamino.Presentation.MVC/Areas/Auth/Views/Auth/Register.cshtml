@@ -13,6 +13,7 @@
         <div class="auth-body">
             <form asp-action="Register" method="post">
                 @Html.AntiForgeryToken()
+                <div asp-validation-summary="All" class="text-danger"></div>
 
                 <div class="row">
                     <div class="col-md-6 mb-3">

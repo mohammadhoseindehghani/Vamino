@@ -1,3 +1,4 @@
+using Vamino.Application;
 using Vamino.Infrastructure.EfCore;
 using Vamino.Infrastructure.Identity;
 
@@ -8,6 +9,7 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.ConfigureInfrastructureIdentityServices(builder.Configuration);
 builder.Services.ConfigureInfrastructureEfCoreServices(builder.Configuration);
+builder.Services.ConfigureApplicationServices();
 
 var app = builder.Build();
 
@@ -26,6 +28,11 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapStaticAssets();
+
+
+app.MapControllerRoute(
+    name: "areas",
+    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
 app.MapControllerRoute(
     name: "default",

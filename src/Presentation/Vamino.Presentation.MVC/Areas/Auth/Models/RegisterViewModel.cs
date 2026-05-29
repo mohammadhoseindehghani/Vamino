@@ -18,6 +18,7 @@ public class RegisterViewModel
     public string NationalCode { get; set; }
 
     [Display(Name = "شماره موبایل")]
+    [StringLength(11, MinimumLength = 11, ErrorMessage = "شماره موبایل باید دقیقاً ۱۱ رقم باشد")]
     [Required(ErrorMessage = "شماره موبایل الزامی است")]
     public string PhoneNumber { get; set; }
 
