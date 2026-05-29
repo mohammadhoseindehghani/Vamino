@@ -1,7 +1,13 @@
+using Vamino.Infrastructure.EfCore;
+using Vamino.Infrastructure.Identity;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.ConfigureInfrastructureIdentityServices(builder.Configuration);
+builder.Services.ConfigureInfrastructureEfCoreServices(builder.Configuration);
 
 var app = builder.Build();
 
@@ -16,6 +22,7 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapStaticAssets();

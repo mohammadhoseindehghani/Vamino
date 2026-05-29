@@ -6,4 +6,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Infrastructure\Vamino.Infrastructure.EfCore\Vamino.Infrastructure.EfCore.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\Vamino.Infrastructure.Identity\Vamino.Infrastructure.Identity.csproj" />
+  </ItemGroup>
+
 </Project>

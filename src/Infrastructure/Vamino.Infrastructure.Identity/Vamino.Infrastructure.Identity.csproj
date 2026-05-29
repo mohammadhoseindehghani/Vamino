@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.3.10" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.3.10" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="10.0.8" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Application\Vamino.Application.Contracts\Vamino.Application.Contracts.csproj" />
+    <ProjectReference Include="..\..\Domain\Vamino.Domain\Vamino.Domain.csproj" />
+    <ProjectReference Include="..\Vamino.Infrastructure.EfCore\Vamino.Infrastructure.EfCore.csproj" />
+  </ItemGroup>
+
+</Project>
