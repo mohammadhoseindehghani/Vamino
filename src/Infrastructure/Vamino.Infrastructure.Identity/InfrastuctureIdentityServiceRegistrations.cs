@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Vamino.Application.Contracts.Contracts.ProviderServices.Identity;
@@ -53,7 +54,7 @@ public static class InfrastructureIdentityServiceRegistrations
 
             options.LogoutPath = "/Auth/Logout";
 
-            options.AccessDeniedPath = "/Auth/AccessDenied";
+            options.AccessDeniedPath = "/home/AccessDenied";
 
             options.ExpireTimeSpan = TimeSpan.FromDays(7);
 

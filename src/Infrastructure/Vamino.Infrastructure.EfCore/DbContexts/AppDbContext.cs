@@ -6,7 +6,7 @@ using Vamino.Domain.UserAgg.Entities;
 
 namespace Vamino.Infrastructure.EfCore.DbContexts;
 
-public class AppDbContext : DbContext
+public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
 {
     public DbSet<User> Users { get; set; }
     public DbSet<LoanContract> LoanContracts { get; set; }

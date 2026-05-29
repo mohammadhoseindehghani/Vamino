@@ -11,4 +11,13 @@
     <ProjectReference Include="..\..\Infrastructure\Vamino.Infrastructure.Identity\Vamino.Infrastructure.Identity.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Areas\Admin\Controllers\" />
+    <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\Admin\Views\" />
+    <Folder Include="Areas\UserPanel\Controllers\" />
+    <Folder Include="Areas\UserPanel\Models\" />
+    <Folder Include="Areas\UserPanel\Views\" />
+  </ItemGroup>
+
 </Project>

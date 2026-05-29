@@ -1,3 +1,5 @@
+@import url('https://v1.fontapi.ir/css/Vazirmatn');
+
 html {
   font-size: 14px;
 }
@@ -28,4 +30,77 @@ body {
 
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
   text-align: start;
+}
+
+
+
+
+
+.hero-section {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    padding: 100px 0;
+    border-bottom-left-radius: 50px;
+    border-bottom-right-radius: 50px;
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    font-weight: 900;
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 1.5rem;
+}
+
+.feature-card {
+    border: none;
+    border-radius: 25px;
+    padding: 30px;
+    transition: all 0.4s ease;
+    background: #fff;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+    height: 100%;
+}
+
+    .feature-card:hover {
+        transform: translateY(-15px);
+        box-shadow: 0 20px 40px rgba(118, 75, 162, 0.15);
+    }
+
+.icon-box {
+    width: 70px;
+    height: 70px;
+    background: var(--primary-gradient);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+}
+
+.step-number {
+    font-size: 4rem;
+    font-weight: 900;
+    color: rgba(118, 75, 162, 0.1);
+    position: absolute;
+    top: -10px;
+    left: 20px;
+}
+
+.btn-luxury {
+    padding: 15px 40px;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    transition: all 0.3s;
+}
+
+.about-section {
+    background: #ffffff;
+    border-radius: 30px;
+    padding: 50px;
+    margin-top: -50px;
+    box-shadow: var(--card-shadow);
 }

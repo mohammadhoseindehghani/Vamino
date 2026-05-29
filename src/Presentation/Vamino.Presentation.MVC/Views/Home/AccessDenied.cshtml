@@ -1,0 +1,183 @@
+﻿@{
+    ViewData["Title"] = "عدم دسترسی";
+    Layout = "_Layout";
+}
+
+<style>
+    .access-denied-container {
+        min-height: 80vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        perspective: 1000px;
+    }
+
+    .error-card {
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(15px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 30px;
+        padding: 3rem;
+        box-shadow: 0 25px 50px rgba(0,0,0,0.1);
+        text-align: center;
+        max-width: 600px;
+        width: 90%;
+        transition: transform 0.5s ease;
+    }
+
+        .error-card:hover {
+            transform: translateY(-10px) rotateX(5deg);
+        }
+
+    .icon-wrapper {
+        position: relative;
+        display: inline-block;
+        margin-bottom: 2rem;
+    }
+
+    .main-icon {
+        font-size: 6rem;
+        background: linear-gradient(135deg, #ff4b2b 0%, #ff416c 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: pulse-red 2s infinite;
+    }
+
+    .shield-icon {
+        position: absolute;
+        bottom: 10px;
+        right: -10px;
+        font-size: 2.5rem;
+        color: #764ba2;
+        background: white;
+        border-radius: 50%;
+        padding: 5px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .error-code {
+        font-size: 5rem;
+        font-weight: 900;
+        color: #2d3436;
+        line-height: 1;
+        margin-bottom: 1rem;
+        letter-spacing: 5px;
+        opacity: 0.1;
+        position: absolute;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: -1;
+    }
+
+    h2 {
+        font-weight: 800;
+        color: #2d3748;
+        margin-bottom: 1.5rem;
+    }
+
+    p {
+        color: #718096;
+        font-size: 1.1rem;
+        line-height: 1.8;
+        margin-bottom: 2.5rem;
+    }
+
+    .btn-action {
+        padding: 12px 35px;
+        border-radius: 15px;
+        font-weight: 700;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .btn-home {
+        background: var(--primary-gradient);
+        color: white;
+        box-shadow: 0 10px 20px rgba(118, 75, 162, 0.3);
+    }
+
+        .btn-home:hover {
+            transform: scale(1.05);
+            color: white;
+            box-shadow: 0 15px 30px rgba(118, 75, 162, 0.4);
+        }
+
+    .btn-back {
+        background: #edf2f7;
+        color: #4a5568;
+        margin-right: 10px;
+    }
+
+        .btn-back:hover {
+            background: #e2e8f0;
+        }
+
+    @@keyframes pulse-red {
+        0% {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        50% {
+            transform: scale(1.05);
+            opacity: 0.8;
+        }
+
+        100% {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+
+    @@media (max-width: 576px) {
+        .btn-action {
+            display: flex;
+            width: 100%;
+            margin-bottom: 10px;
+            justify-content: center;
+        }
+
+        .btn-back {
+            margin-right: 0;
+        }
+    }
+</style>
+
+<div class="access-denied-container">
+    <div class="error-card">
+        <div class="error-code">403</div>
+
+        <div class="icon-wrapper">
+            <i class="bi bi-lock-fill main-icon"></i>
+            <i class="bi bi-shield-lock-fill shield-icon"></i>
+        </div>
+
+        <h2>منطقه محدود شده!</h2>
+
+        <p>
+            متأسفیم، شما مجوز لازم برای ورود به این بخش از سامانه وامینو را ندارید.
+            این بخش مخصوص مدیران ارشد یا نقش‌های خاص کاربری است.
+        </p>
+
+        <div class="actions">
+            <a href="javascript:history.back()" class="btn-action btn-back">
+                <i class="bi bi-arrow-right"></i>
+                بازگشت به صفحه قبل
+            </a>
+            <a asp-controller="Home" asp-action="Index" class="btn-action btn-home">
+                <i class="bi bi-house-door"></i>
+                صفحه اصلی
+            </a>
+        </div>
+
+        <div class="mt-5 pt-4 border-top">
+            <small class="text-muted">
+                اگر فکر می‌کنید این یک اشتباه است، لطفاً با پشتیبانی فنی تماس بگیرید.
+            </small>
+        </div>
+    </div>
+</div>
