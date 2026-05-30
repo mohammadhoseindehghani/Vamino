@@ -31,9 +31,9 @@ public class LoanContractRepository(AppDbContext context) : ILoanContractReposit
     {
         var effectedRows = await context.LoanContracts.Where(x => x.Id == id)
             .ExecuteUpdateAsync(setter => setter
-                .SetProperty(x=>x.Title, model.Title)
-                .SetProperty(x=>x.Amount, model.Amount)
-                .SetProperty(x=>x.Description, model.Description), ct);
+                .SetProperty(x => x.Title, model.Title)
+                .SetProperty(x => x.Amount, model.Amount)
+                .SetProperty(x => x.Description, model.Description), ct);
 
         return effectedRows > 0;
     }
@@ -45,7 +45,7 @@ public class LoanContractRepository(AppDbContext context) : ILoanContractReposit
                 .SetProperty(x => x.LoanStatus, LoanStatus.Cancelled)
                 .SetProperty(x => x.IsDeleted, true)
                 .SetProperty(x => x.UpdatedAt, DateTime.UtcNow)
-                .SetProperty(x=>x.DeletedAt, DateTime.UtcNow),ct);
+                .SetProperty(x => x.DeletedAt, DateTime.UtcNow), ct);
 
         return effectedRows > 0;
     }
@@ -61,7 +61,7 @@ public class LoanContractRepository(AppDbContext context) : ILoanContractReposit
                 x.BorrowerId,
                 x.Amount,
                 x.Description,
-                x.LoanStatus, 
+                x.LoanStatus,
                 x.CreatedAt
             )).FirstOrDefaultAsync(ct);
     }
@@ -84,7 +84,7 @@ public class LoanContractRepository(AppDbContext context) : ILoanContractReposit
     public async Task<List<LoanContractDto>> GetAllByUserIdAsync(int id, CancellationToken ct)
     {
         return await context.LoanContracts
-            .Where(x=>x.BorrowerId == id)
+            .Where(x => x.BorrowerId == id)
             .AsNoTracking()
             .Select(x => new LoanContractDto(
                 x.Id,
@@ -127,6 +127,16 @@ public class LoanContractRepository(AppDbContext context) : ILoanContractReposit
         return effectedRows > 0;
     }
 
+    public async Task<bool> ChangeStatusToPendingForBankReviewAsync(int id, CancellationToken ct)
+    {
+        var effectedRows = await context.LoanContracts.Where(x => x.Id == id)
+            .ExecuteUpdateAsync(setter => setter
+                .SetProperty(x => x.LoanStatus, LoanStatus.PendingForBankReview)
+                .SetProperty(x => x.UpdatedAt, DateTime.UtcNow), ct);
+
+        return effectedRows > 0;
+    }
+
     public async Task<bool> IsEditableAsync(int loanContractId, CancellationToken ct)
     {
         return await context.LoanContracts
@@ -148,6 +158,17 @@ public class LoanContractRepository(AppDbContext context) : ILoanContractReposit
             }).FirstOrDefaultAsync(ct);
 
         return result is null ? (0, 0) : (result.Amount, result.ApprovedGuarantorsCount);
+    }
+
+    public async Task<LoanContractCompletionSummaryDto?> GetContractSummaryForCompletionProcessAsync(int loanContractId, CancellationToken ct)
+    {
+        return await context.LoanContracts
+            .Where(x => x.Id == loanContractId)
+            .Select(x => new LoanContractCompletionSummaryDto(
+                 x.Amount,
+                 x.LoanGuarantors.Count(g => g.GuarantorStatus == GuarantorStatus.Approved),
+                 x.LoanStatus
+            )).FirstOrDefaultAsync(ct);
     }
 
 

@@ -55,4 +55,9 @@ public class LoanGuarantorService(ILoanGuarantorRepository repo) : ILoanGuaranto
     {
         return await repo.CanBeGuarantorForContractAsync(loanContractId, userId, ct);
     }
+
+    public async Task<int?> GetLoanContractIdByGuarantorIdAsync(int guarantorId, CancellationToken ct)
+    {
+        return await repo.GetLoanContractIdByGuarantorIdAsync(guarantorId, ct);
+    }
 }

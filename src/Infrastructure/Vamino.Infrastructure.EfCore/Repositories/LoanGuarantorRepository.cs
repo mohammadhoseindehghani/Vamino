@@ -150,4 +150,11 @@ public class LoanGuarantorRepository(AppDbContext context) : ILoanGuarantorRepos
         return true;
     }
 
+    public async Task<int?> GetLoanContractIdByGuarantorIdAsync(int guarantorId, CancellationToken ct)
+    {
+        return await context.LoanGuarantors
+            .Where(x => x.Id == guarantorId)
+            .Select(x => (int?)x.LoanContractId)
+            .FirstOrDefaultAsync(ct);
+    }
 }

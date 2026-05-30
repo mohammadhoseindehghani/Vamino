@@ -14,4 +14,5 @@ public interface ILoanGuarantorService
     Task<List<LoanGuarantorDto>> GetAllByUserIdAsync(int userId, CancellationToken ct);
     Task<List<LoanGuarantorDto>> GetAllByContractIdAsync(int contractId, CancellationToken ct);
     Task<bool> CanBeGuarantorForContractAsync(int loanContractId, int userId, CancellationToken ct);
+    Task<int?> GetLoanContractIdByGuarantorIdAsync(int guarantorId, CancellationToken ct);
 }

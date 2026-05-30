@@ -1,6 +1,7 @@
 ﻿using Vamino.Application.Contracts.Contracts.DomainServices;
 using Vamino.Application.Contracts.Contracts.Repositories;
 using Vamino.Application.Contracts.DTOs.LoanContract;
+using Vamino.Domain.LoanContractAgg.Enums;
 
 namespace Vamino.Application.Features.LoanContract.Services;
 
@@ -64,5 +65,23 @@ public class LoanContractService(ILoanContractRepository repo) : ILoanContractSe
     public async Task<bool> IsOwnerAsync(int loanContractId, int userId, CancellationToken ct)
     {
         return await repo.IsOwnerAsync(loanContractId, userId, ct);
+    }
+
+    public async Task EvaluateStatusAfterGuarantorResponseAsync(int loanContractId, CancellationToken ct)
+    {
+        var summary = await repo.GetContractSummaryForCompletionProcessAsync(loanContractId, ct);
+
+        if (summary is null)
+            return;
+
+        if (summary.Status != LoanStatus.PendingForGuarantors)
+            return;
+
+        var requiredGuarantors = Math.Max(1, (int)Math.Ceiling(summary.Amount / 50_000_000m));
+
+        if (summary.ApprovedGuarantorsCount >= requiredGuarantors)
+        {
+            await repo.ChangeStatusToPendingForBankReviewAsync(loanContractId, ct);
+        }
     }
 }

@@ -16,4 +16,5 @@ public interface ILoanContractService
     Task<bool> IsEditableAsync(int loanContractId, CancellationToken ct);
     Task<(decimal Amount, int ApprovedGuarantorsCount)> GetContractSummaryForCompletionAsync(int loanContractId, CancellationToken ct);
     Task<bool> IsOwnerAsync(int loanContractId, int userId, CancellationToken ct);
+    Task EvaluateStatusAfterGuarantorResponseAsync(int loanContractId, CancellationToken ct);
 }
