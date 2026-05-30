@@ -1,0 +1,115 @@
+﻿@{
+    var title = ViewData["Title"]?.ToString() ?? "پنل ادمین";
+}
+
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@title - پنل ادمین</title>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.rtl.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/adminpanel/css/adminpanel.css" />
+</head>
+<body class="ap-body">
+    <div class="ap-shell">
+        <aside class="ap-sidebar">
+            <div class="ap-brand">
+                <div class="ap-brand-badge">
+                    <i class="bi bi-bank2"></i>
+                </div>
+                <div class="ap-brand-text">
+                    <div class="fw-bold">پنل مدیریت بانک</div>
+                    <small class="text-muted">Loan Contract Administration</small>
+                </div>
+            </div>
+
+            <div class="ap-admin-card">
+                <div class="ap-avatar">A</div>
+                <div>
+                    <div class="fw-bold">ادمین سیستم</div>
+                    <small class="text-muted">دسترسی مدیریتی</small>
+                </div>
+            </div>
+
+            <nav class="ap-nav">
+                <a class="ap-nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Admin" ? "active" : "")"
+                   asp-controller="Admin" asp-action="Dashboard">
+                    <i class="bi bi-grid-1x2-fill"></i>
+                    <span>داشبورد</span>
+                </a>
+
+                <a class="ap-nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "AdminUser" ? "active" : "")"
+                   asp-controller="AdminUser" asp-action="Index">
+                    <i class="bi bi-people-fill"></i>
+                    <span>مدیریت کاربران</span>
+                </a>
+
+                <a class="ap-nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "AdminGuarantors" ? "active" : "")"
+                   asp-controller="AdminGuarantors" asp-action="Index">
+                    <i class="bi bi-shield-check"></i>
+                    <span>لیست ضامن‌ها</span>
+                </a>
+
+                <a class="ap-nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "AdminLoanContracts" ? "active" : "")"
+                   asp-controller="AdminLoanContracts" asp-action="PendingBankReview">
+                    <i class="bi bi-cash-stack"></i>
+                    <span>وام‌های منتظر تایید</span>
+                </a>
+
+                <div class="ap-nav-sep"></div>
+
+                <a class="ap-nav-link danger" href="#">
+                    <i class="bi bi-box-arrow-right"></i>
+                    <span>خروج</span>
+                </a>
+            </nav>
+        </aside>
+
+        <main class="ap-main">
+            <header class="ap-topbar">
+                <div class="ap-topbar-inner">
+                    <div>
+                        <div class="ap-page-title">@title</div>
+                        <div class="ap-page-subtitle">مدیریت کاربران، ضامن‌ها و درخواست‌های بانکی</div>
+                    </div>
+
+                    <div class="ap-topbar-actions">
+                        <a href="#" class="ap-chip">
+                            <i class="bi bi-bell"></i>
+                            <span>اعلان‌ها</span>
+                            <span class="ap-dot"></span>
+                        </a>
+                        <a href="#" class="ap-chip">
+                            <i class="bi bi-person-circle"></i>
+                            <span>پروفایل ادمین</span>
+                        </a>
+                    </div>
+                </div>
+            </header>
+
+            <section class="ap-content">
+                <div class="ap-content-inner">
+                    @RenderBody()
+                </div>
+            </section>
+
+            <footer class="ap-footer">
+                <div>
+                    <small class="text-muted">
+                        © پنل مدیریت قراردادهای وام - طراحی شده با ASP.NET Core MVC
+                    </small>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
