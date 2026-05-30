@@ -50,4 +50,19 @@ public class LoanContractService(ILoanContractRepository repo) : ILoanContractSe
     {
         return await repo.ChangeStatusToRejectedAsync(id, ct);
     }
+
+    public async Task<bool> IsEditableAsync(int loanContractId, CancellationToken ct)
+    {
+        return await repo.IsEditableAsync(loanContractId, ct);
+    }
+
+    public async Task<(decimal Amount, int ApprovedGuarantorsCount)> GetContractSummaryForCompletionAsync(int loanContractId, CancellationToken ct)
+    {
+        return await repo.GetContractSummaryForCompletionAsync(loanContractId, ct);
+    }
+
+    public async Task<bool> IsOwnerAsync(int loanContractId, int userId, CancellationToken ct)
+    {
+        return await repo.IsOwnerAsync(loanContractId, userId, ct);
+    }
 }
