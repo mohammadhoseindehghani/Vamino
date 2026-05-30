@@ -2,7 +2,7 @@
 using Vamino.Application.Contracts.Contracts.Repositories;
 using Vamino.Application.Contracts.DTOs.LoanGuarantor;
 
-namespace Vamino.Application.Features.LoanContract.Services;
+namespace Vamino.Application.Features.LoanGuarantor.Services;
 
 public class LoanGuarantorService(ILoanGuarantorRepository repo) : ILoanGuarantorService
 {
@@ -36,13 +36,18 @@ public class LoanGuarantorService(ILoanGuarantorRepository repo) : ILoanGuaranto
         return await repo.GetByIdAsync(id, ct);
     }
 
-    public async Task<List<LoanGuarantorDto>> GetAll(CancellationToken ct)
+    public async Task<List<LoanGuarantorDto>> GetAllAsync(CancellationToken ct)
     {
-        return await repo.GetAll(ct);
+        return await repo.GetAllAsync(ct);
     }
 
-    public async Task<List<LoanGuarantorDto>> GetAllByUserId(int userId, CancellationToken ct)
+    public async Task<List<LoanGuarantorDto>> GetAllByUserIdAsync(int userId, CancellationToken ct)
     {
-        return await repo.GetAllByUserId(userId, ct);
+        return await repo.GetAllByUserIdAsync(userId, ct);
+    }
+
+    public async Task<List<LoanGuarantorDto>> GetAllByContractIdAsync(int contractId, CancellationToken ct)
+    {
+        return await repo.GetAllByContractIdAsync(contractId, ct);
     }
 }

@@ -83,7 +83,7 @@ public class LoanGuarantorRepository(AppDbContext context) : ILoanGuarantorRepos
             )).FirstOrDefaultAsync(ct);
     }
 
-    public async Task<List<LoanGuarantorDto>> GetAll(CancellationToken ct)
+    public async Task<List<LoanGuarantorDto>> GetAllAsync(CancellationToken ct)
     {
         return await context.LoanGuarantors
             .AsNoTracking()
@@ -98,7 +98,7 @@ public class LoanGuarantorRepository(AppDbContext context) : ILoanGuarantorRepos
             )).ToListAsync(ct);
     }
 
-    public async Task<List<LoanGuarantorDto>> GetAllByUserId(int userId, CancellationToken ct)
+    public async Task<List<LoanGuarantorDto>> GetAllByUserIdAsync(int userId, CancellationToken ct)
     {
         return await context.LoanGuarantors
             .Where(x => x.UserId == userId)
@@ -116,4 +116,38 @@ public class LoanGuarantorRepository(AppDbContext context) : ILoanGuarantorRepos
             ))
             .ToListAsync(ct);
     }
+
+    public async Task<List<LoanGuarantorDto>> GetAllByContractIdAsync(int contractId, CancellationToken ct)
+    {
+        return await context.LoanGuarantors
+            .AsNoTracking()
+            .Where(x=>x.LoanContractId == contractId)
+            .Select(x => new LoanGuarantorDto(
+                x.Id,
+                x.LoanContractId,
+                x.UserId,
+                x.GuarantorStatus,
+                x.Note,
+                x.RespondedAt,
+                x.CreatedAt
+            )).ToListAsync(ct);
+    }
+
+    public async Task<bool> CanBeGuarantorForContractAsync(int loanContractId, int userId, CancellationToken ct)
+    {
+        var isBorrower = await context.LoanContracts
+            .AnyAsync(x => x.Id == loanContractId && x.BorrowerId == userId, ct);
+
+        if (isBorrower)
+            return false;
+
+        var alreadyGuarantor = await context.LoanGuarantors
+            .AnyAsync(x => x.LoanContractId == loanContractId && x.UserId == userId, ct);
+
+        if (alreadyGuarantor)
+            return false;
+
+        return true;
+    }
+
 }

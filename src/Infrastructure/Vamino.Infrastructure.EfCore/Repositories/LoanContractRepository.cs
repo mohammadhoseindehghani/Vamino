@@ -3,6 +3,7 @@ using Vamino.Application.Contracts.Contracts.Repositories;
 using Vamino.Application.Contracts.DTOs.LoanContract;
 using Vamino.Domain.LoanContractAgg.Entities;
 using Vamino.Domain.LoanContractAgg.Enums;
+using Vamino.Domain.LoanGuarantorAgg.Enums;
 using Vamino.Infrastructure.EfCore.DbContexts;
 
 namespace Vamino.Infrastructure.EfCore.Repositories;
@@ -49,7 +50,7 @@ public class LoanContractRepository(AppDbContext context) : ILoanContractReposit
         return effectedRows > 0;
     }
 
-    public async Task<LoanContractDto?> GetLoanContract(int id, CancellationToken ct)
+    public async Task<LoanContractDto?> GetLoanContractAsync(int id, CancellationToken ct)
     {
         return await context.LoanContracts
             .Where(x => x.Id == id)
@@ -65,7 +66,7 @@ public class LoanContractRepository(AppDbContext context) : ILoanContractReposit
             )).FirstOrDefaultAsync(ct);
     }
 
-    public async Task<List<LoanContractDto>> GetAll(CancellationToken ct)
+    public async Task<List<LoanContractDto>> GetAllAsync(CancellationToken ct)
     {
         return await context.LoanContracts
             .AsNoTracking()
@@ -80,7 +81,7 @@ public class LoanContractRepository(AppDbContext context) : ILoanContractReposit
             )).ToListAsync(ct);
     }
 
-    public async Task<List<LoanContractDto>> GetAllByUserId(int id, CancellationToken ct)
+    public async Task<List<LoanContractDto>> GetAllByUserIdAsync(int id, CancellationToken ct)
     {
         return await context.LoanContracts
             .Where(x=>x.BorrowerId == id)
@@ -96,7 +97,7 @@ public class LoanContractRepository(AppDbContext context) : ILoanContractReposit
             )).ToListAsync(ct);
     }
 
-    public async Task<bool> ChangeStatusToCancel(int id, CancellationToken ct)
+    public async Task<bool> ChangeStatusToCancelAsync(int id, CancellationToken ct)
     {
         var effectedRows = await context.LoanContracts.Where(x => x.Id == id)
             .ExecuteUpdateAsync(setter => setter
@@ -106,7 +107,7 @@ public class LoanContractRepository(AppDbContext context) : ILoanContractReposit
         return effectedRows > 0;
     }
 
-    public async Task<bool> ChangeStatusToCompleted(int id, CancellationToken ct)
+    public async Task<bool> ChangeStatusToCompletedAsync(int id, CancellationToken ct)
     {
         var effectedRows = await context.LoanContracts.Where(x => x.Id == id)
             .ExecuteUpdateAsync(setter => setter
@@ -116,7 +117,7 @@ public class LoanContractRepository(AppDbContext context) : ILoanContractReposit
         return effectedRows > 0;
     }
 
-    public async Task<bool> ChangeStatusToRejected(int id, CancellationToken ct)
+    public async Task<bool> ChangeStatusToRejectedAsync(int id, CancellationToken ct)
     {
         var effectedRows = await context.LoanContracts.Where(x => x.Id == id)
             .ExecuteUpdateAsync(setter => setter
@@ -124,5 +125,37 @@ public class LoanContractRepository(AppDbContext context) : ILoanContractReposit
                 .SetProperty(x => x.UpdatedAt, DateTime.UtcNow), ct);
 
         return effectedRows > 0;
+    }
+
+    public async Task<bool> IsEditableAsync(int loanContractId, CancellationToken ct)
+    {
+        return await context.LoanContracts
+            .AnyAsync(x =>
+                    x.Id == loanContractId &&
+                    x.LoanStatus == LoanStatus.PendingForGuarantors, ct);
+    }
+
+    public async Task<(decimal Amount, int ApprovedGuarantorsCount)> GetContractSummaryForCompletionAsync(
+        int loanContractId,
+        CancellationToken ct)
+    {
+        var result = await context.LoanContracts
+            .Where(x => x.Id == loanContractId)
+            .Select(x => new
+            {
+                x.Amount,
+                ApprovedGuarantorsCount = x.LoanGuarantors.Count(g => g.GuarantorStatus == GuarantorStatus.Approved)
+            }).FirstOrDefaultAsync(ct);
+
+        return result is null ? (0, 0) : (result.Amount, result.ApprovedGuarantorsCount);
+    }
+
+
+    public async Task<bool> IsOwnerAsync(int loanContractId, int userId, CancellationToken ct)
+    {
+        return await context.LoanContracts
+            .AnyAsync(x =>
+                    x.Id == loanContractId &&
+                    x.BorrowerId == userId, ct);
     }
 }

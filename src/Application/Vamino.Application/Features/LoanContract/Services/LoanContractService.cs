@@ -21,33 +21,33 @@ public class LoanContractService(ILoanContractRepository repo) : ILoanContractSe
         return await repo.DeleteAsync(id, ct);
     }
 
-    public async Task<LoanContractDto?> GetLoanContract(int id, CancellationToken ct)
+    public async Task<LoanContractDto?> GetLoanContractAsync(int id, CancellationToken ct)
     {
-        return await repo.GetLoanContract(id, ct);
+        return await repo.GetLoanContractAsync(id, ct);
     }
 
-    public async Task<List<LoanContractDto>> GetAll(CancellationToken ct)
+    public async Task<List<LoanContractDto>> GetAllAsync(CancellationToken ct)
     {
-        return await repo.GetAll(ct);
+        return await repo.GetAllAsync(ct);
     }
 
-    public async Task<List<LoanContractDto>> GetAllByUserId(int id, CancellationToken ct)
+    public async Task<List<LoanContractDto>> GetAllByUserIdAsync(int id, CancellationToken ct)
     {
-        return await repo.GetAllByUserId(id, ct);
+        return await repo.GetAllByUserIdAsync(id, ct);
     }
 
-    public async Task<bool> ChangeStatusToCancel(int id, CancellationToken ct)
+    public async Task<bool> ChangeStatusToCancelAsync(int id, CancellationToken ct)
     {
-        return await repo.ChangeStatusToCancel(id, ct);
+        return await repo.ChangeStatusToCancelAsync(id, ct);
     }
 
-    public async Task<bool> ChangeStatusToCompleted(int id, CancellationToken ct)
+    public async Task<bool> ChangeStatusToCompletedAsync(int id, CancellationToken ct)
     {
-        return await repo.ChangeStatusToCompleted(id, ct);
+        return await repo.ChangeStatusToCompletedAsync(id, ct);
     }
 
-    public async Task<bool> ChangeStatusToRejected(int id, CancellationToken ct)
+    public async Task<bool> ChangeStatusToRejectedAsync(int id, CancellationToken ct)
     {
-        return await repo.ChangeStatusToRejected(id, ct);
+        return await repo.ChangeStatusToRejectedAsync(id, ct);
     }
 }

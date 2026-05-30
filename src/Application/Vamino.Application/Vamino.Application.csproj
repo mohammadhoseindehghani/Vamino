@@ -11,9 +11,7 @@
     <Folder Include="Features\LoanContract\Queries\" />
     <Folder Include="Features\LoanGuarantor\Commands\" />
     <Folder Include="Features\LoanGuarantor\Queries\" />
-    <Folder Include="Features\LoanGuarantor\Services\" />
     <Folder Include="Features\User\Queries\GetUserList\" />
-    <Folder Include="Features\User\Services\" />
   </ItemGroup>
 
   <ItemGroup>

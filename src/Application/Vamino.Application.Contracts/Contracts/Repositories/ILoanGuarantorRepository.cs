@@ -10,6 +10,8 @@ public interface ILoanGuarantorRepository
     Task<bool> ApproveAsync(int id, CancellationToken ct);
     Task<bool> RejectAsync(int id, CancellationToken ct);
     Task<LoanGuarantorDto?> GetByIdAsync(int id, CancellationToken ct);
-    Task<List<LoanGuarantorDto>> GetAll(CancellationToken ct);
-    Task<List<LoanGuarantorDto>> GetAllByUserId(int userId, CancellationToken ct);
+    Task<List<LoanGuarantorDto>> GetAllAsync(CancellationToken ct);
+    Task<List<LoanGuarantorDto>> GetAllByUserIdAsync(int userId, CancellationToken ct);
+    Task<List<LoanGuarantorDto>> GetAllByContractIdAsync(int contractId, CancellationToken ct);
+    Task<bool> CanBeGuarantorForContractAsync(int loanContractId, int userId, CancellationToken ct);
 }
