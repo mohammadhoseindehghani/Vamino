@@ -1,0 +1,20 @@
+﻿@{
+    var success = TempData["SuccessMessage"]?.ToString();
+    var error = TempData["ErrorMessage"]?.ToString();
+}
+
+@if (!string.IsNullOrWhiteSpace(success))
+{
+    <div class="alert alert-success up-alert" role="alert">
+        <i class="bi bi-check-circle"></i>
+        <div>@success</div>
+    </div>
+}
+
+@if (!string.IsNullOrWhiteSpace(error))
+{
+    <div class="alert alert-danger up-alert" role="alert">
+        <i class="bi bi-exclamation-triangle"></i>
+        <div>@error</div>
+    </div>
+}

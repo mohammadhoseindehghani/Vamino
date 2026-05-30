@@ -1,0 +1,28 @@
+﻿@{
+    var title = ViewData["Title"]?.ToString() ?? "پنل کاربری";
+}
+
+<div class="up-topbar-inner">
+    <div class="up-page-title">
+        <div class="up-page-title-icon">
+            <i class="bi bi-grid-1x2"></i>
+        </div>
+        <div>
+            <div class="up-page-title-text">@title</div>
+            <div class="up-page-subtitle">مدیریت ساده، سریع و شفاف</div>
+        </div>
+    </div>
+
+    <div class="up-topbar-actions">
+        <a class="up-pill" href="#">
+            <i class="bi bi-bell"></i>
+            <span>اعلان‌ها</span>
+            <span class="up-dot"></span>
+        </a>
+
+        <a class="up-pill" href="#">
+            <i class="bi bi-gear"></i>
+            <span>تنظیمات</span>
+        </a>
+    </div>
+</div>

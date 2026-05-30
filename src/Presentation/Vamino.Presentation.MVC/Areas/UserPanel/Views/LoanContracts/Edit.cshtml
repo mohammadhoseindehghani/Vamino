@@ -1,0 +1,50 @@
+﻿@{
+    ViewData["Title"] = "ویرایش قرارداد";
+}
+
+<div class="up-card">
+    <div class="up-card-header">
+        <h5 class="up-card-title mb-0">ویرایش قرارداد</h5>
+        <a class="btn btn-up" asp-area="UserPanel" asp-controller="LoanContracts" asp-action="Index">
+            <i class="bi bi-arrow-right"></i> بازگشت
+        </a>
+    </div>
+
+    <div class="up-card-body">
+        <div class="alert alert-warning up-alert mb-3">
+            <i class="bi bi-info-circle"></i>
+            <div>
+                <div class="fw-bold">توجه</div>
+                <div class="small text-muted">فقط قراردادهایی که در وضعیت «در انتظار ضامن» هستند قابل ویرایش‌اند.</div>
+            </div>
+        </div>
+
+        <form class="up-form" method="post">
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label class="form-label">عنوان قرارداد</label>
+                    <input class="form-control" value="وام خرید کالا" />
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label">مبلغ وام</label>
+                    <input class="form-control" value="250000000" />
+                </div>
+
+                <div class="col-12">
+                    <label class="form-label">توضیحات</label>
+                    <textarea class="form-control" rows="4">...</textarea>
+                </div>
+
+                <div class="col-12 d-flex gap-2 justify-content-end flex-wrap">
+                    <button type="submit" class="btn btn-up primary">
+                        <i class="bi bi-save2"></i> ذخیره تغییرات
+                    </button>
+                    <a class="btn btn-up danger" asp-area="UserPanel" asp-controller="LoanContracts" asp-action="Delete" asp-route-id="12">
+                        <i class="bi bi-trash3"></i> حذف قرارداد
+                    </a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

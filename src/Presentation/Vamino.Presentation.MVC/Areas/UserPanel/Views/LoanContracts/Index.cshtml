@@ -1,0 +1,132 @@
+﻿@{
+    ViewData["Title"] = "مدیریت قراردادها";
+}
+
+<div class="up-kpis mb-3">
+    <div class="up-kpi">
+        <div class="label">تعداد قراردادها</div>
+        <div class="value">—</div>
+        <div class="hint">در اینجا بعداً از مدل پر می‌شود</div>
+    </div>
+    <div class="up-kpi">
+        <div class="label">در انتظار ضامن</div>
+        <div class="value">—</div>
+        <div class="hint">PendingForGuarantors</div>
+    </div>
+    <div class="up-kpi">
+        <div class="label">در انتظار بررسی بانک</div>
+        <div class="value">—</div>
+        <div class="hint">PendingForBankReview</div>
+    </div>
+    <div class="up-kpi">
+        <div class="label">تکمیل شده</div>
+        <div class="value">—</div>
+        <div class="hint">Completed</div>
+    </div>
+</div>
+
+<div class="up-card">
+    <div class="up-card-header">
+        <h5 class="up-card-title mb-0">لیست قراردادهای من</h5>
+        <div class="d-flex gap-2">
+            <a class="btn btn-up primary" asp-area="UserPanel" asp-controller="LoanContracts" asp-action="Create">
+                <i class="bi bi-plus-circle"></i>
+                ایجاد قرارداد
+            </a>
+        </div>
+    </div>
+
+    <div class="up-card-body">
+        <div class="row g-2 mb-3">
+            <div class="col-md-6">
+                <input class="form-control" placeholder="جستجو در عنوان/توضیحات..." />
+            </div>
+            <div class="col-md-3">
+                <select class="form-select">
+                    <option>همه وضعیت‌ها</option>
+                    <option>در انتظار ضامن</option>
+                    <option>در انتظار بررسی بانک</option>
+                    <option>تکمیل شده</option>
+                    <option>رد شده</option>
+                    <option>لغو شده</option>
+                </select>
+            </div>
+            <div class="col-md-3 d-grid">
+                <button class="btn btn-up">
+                    <i class="bi bi-search"></i>
+                    اعمال فیلتر
+                </button>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table up-table align-middle">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>عنوان</th>
+                        <th>مبلغ</th>
+                        <th>وضعیت</th>
+                        <th>تاریخ ایجاد</th>
+                        <th class="text-end">عملیات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @* نمونه UI - بعداً foreach روی Model *@
+                    <tr>
+                        <td>12</td>
+                        <td class="fw-semibold">وام خرید کالا</td>
+                        <td>250,000,000</td>
+                        <td>
+                            <span class="up-badge warning"><span class="dot"></span>در انتظار ضامن</span>
+                        </td>
+                        <td>1403/02/10</td>
+                        <td class="text-end">
+                            <div class="d-flex justify-content-end gap-2 flex-wrap">
+                                <a class="btn btn-up" asp-area="UserPanel" asp-controller="LoanContracts" asp-action="Edit" asp-route-id="12">
+                                    <i class="bi bi-pencil-square"></i> ویرایش
+                                </a>
+                                <a class="btn btn-up danger" asp-area="UserPanel" asp-controller="LoanContracts" asp-action="Delete" asp-route-id="12">
+                                    <i class="bi bi-trash3"></i> حذف
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>13</td>
+                        <td class="fw-semibold">وام تعمیرات منزل</td>
+                        <td>600,000,000</td>
+                        <td>
+                            <span class="up-badge info"><span class="dot"></span>در انتظار بررسی بانک</span>
+                        </td>
+                        <td>1403/02/12</td>
+                        <td class="text-end">
+                            <div class="d-flex justify-content-end gap-2 flex-wrap">
+                                <a class="btn btn-up" asp-area="UserPanel" asp-controller="LoanContracts" asp-action="Edit" asp-route-id="13">
+                                    <i class="bi bi-eye"></i> مشاهده
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+
+                    @* empty state نمونه *@
+                    @*
+                    <tr>
+                        <td colspan="6">
+                            <div class="text-center py-5">
+                                <div style="font-size:38px; opacity:.7"><i class="bi bi-inbox"></i></div>
+                                <div class="fw-bold mt-2">هنوز قراردادی ثبت نشده</div>
+                                <div class="text-muted mt-1">برای شروع، یک قرارداد جدید ایجاد کنید.</div>
+                                <div class="mt-3">
+                                    <a class="btn btn-up primary" asp-action="Create">ایجاد قرارداد</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    *@
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

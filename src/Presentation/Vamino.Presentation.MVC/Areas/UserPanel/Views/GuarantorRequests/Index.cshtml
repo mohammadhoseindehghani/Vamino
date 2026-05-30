@@ -1,0 +1,153 @@
+﻿@{
+    ViewData["Title"] = "درخواست‌های ضمانت";
+}
+
+<div class="up-card mb-3">
+    <div class="up-card-header">
+        <h5 class="up-card-title mb-0">لیست درخواست‌های ضمانت برای شما</h5>
+        <div class="d-flex gap-2">
+            <button class="btn btn-up">
+                <i class="bi bi-arrow-repeat"></i> بروزرسانی
+            </button>
+        </div>
+    </div>
+
+    <div class="up-card-body">
+        <div class="row g-2 mb-3">
+            <div class="col-md-6">
+                <input class="form-control" placeholder="جستجو (عنوان قرارداد/نام وام‌گیرنده/...)" />
+            </div>
+            <div class="col-md-3">
+                <select class="form-select">
+                    <option>همه وضعیت‌ها</option>
+                    <option>در انتظار پاسخ</option>
+                    <option>تایید شده</option>
+                    <option>رد شده</option>
+                </select>
+            </div>
+            <div class="col-md-3 d-grid">
+                <button class="btn btn-up">
+                    <i class="bi bi-funnel"></i> اعمال فیلتر
+                </button>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table up-table align-middle">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>قرارداد</th>
+                        <th>مبلغ</th>
+                        <th>وضعیت درخواست</th>
+                        <th>یادداشت شما</th>
+                        <th class="text-end">عملیات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @* نمونه *@
+                    <tr>
+                        <td>91</td>
+                        <td class="fw-semibold">وام خرید کالا</td>
+                        <td>250,000,000</td>
+                        <td>
+                            <span class="up-badge warning"><span class="dot"></span>در انتظار پاسخ</span>
+                        </td>
+                        <td class="text-muted">—</td>
+                        <td class="text-end">
+                            <div class="d-flex justify-content-end gap-2 flex-wrap">
+                                <button class="btn btn-up success" data-bs-toggle="modal" data-bs-target="#approveModal">
+                                    <i class="bi bi-check2"></i> تایید
+                                </button>
+                                <button class="btn btn-up danger" data-bs-toggle="modal" data-bs-target="#rejectModal">
+                                    <i class="bi bi-x-lg"></i> رد
+                                </button>
+                                <button class="btn btn-up" data-bs-toggle="modal" data-bs-target="#noteModal">
+                                    <i class="bi bi-chat-left-text"></i> یادداشت
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>92</td>
+                        <td class="fw-semibold">وام تعمیرات منزل</td>
+                        <td>600,000,000</td>
+                        <td>
+                            <span class="up-badge success"><span class="dot"></span>تایید شده</span>
+                        </td>
+                        <td class="text-muted">به شرط پرداخت به‌موقع</td>
+                        <td class="text-end">
+                            <div class="d-flex justify-content-end gap-2 flex-wrap">
+                                <button class="btn btn-up" data-bs-toggle="modal" data-bs-target="#noteModal">
+                                    <i class="bi bi-pencil"></i> ویرایش یادداشت
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Approve Modal -->
+        <div class="modal fade" id="approveModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">تایید درخواست ضمانت</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        آیا مطمئن هستید می‌خواهید این درخواست را تایید کنید؟
+                        <div class="mt-2 text-muted small">با تایید شما، امکان انتقال وضعیت قرارداد به مرحله بررسی بانک فراهم می‌شود.</div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-up" data-bs-dismiss="modal">انصراف</button>
+                        <button class="btn btn-up success">تایید</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Reject Modal -->
+        <div class="modal fade" id="rejectModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">رد درخواست ضمانت</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        آیا مطمئن هستید می‌خواهید این درخواست را رد کنید؟
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-up" data-bs-dismiss="modal">انصراف</button>
+                        <button class="btn btn-up danger">رد</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Note Modal -->
+        <div class="modal fade" id="noteModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">ثبت/ویرایش یادداشت</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <label class="form-label">یادداشت شما</label>
+                        <textarea class="form-control" rows="4" placeholder="مثلاً: در صورتی تایید می‌کنم که..."></textarea>
+                        <div class="up-help">این یادداشت در سیستم ذخیره می‌شود.</div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-up" data-bs-dismiss="modal">بستن</button>
+                        <button class="btn btn-up primary">ذخیره</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
