@@ -1,0 +1,250 @@
+﻿@{
+    ViewData["Title"] = "درباره پیاده‌سازی پروژه";
+    Layout = "_Layout";
+}
+<style>
+    :root {
+        --glass-bg: rgba(255, 255, 255, 0.7);
+        --glass-border: rgba(231, 231, 231, 0.8);
+        --primary-grad: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        --soft-shadow: 0 20px 40px rgba(0, 0, 0, 0.06);
+    }
+
+    body {
+        background-color: #f4f7fa; 
+        color: #2d3748;
+    }
+
+    .premium-header {
+        padding: 100px 0 60px;
+        background: radial-gradient(circle at top, #ffffff 0%, #f4f7fa 100%);
+    }
+
+    .glitch-title {
+        font-size: 4rem;
+        font-weight: 900;
+        background: var(--primary-grad);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        letter-spacing: -1px;
+    }
+
+    .glass-card {
+        background: var(--glass-bg);
+        backdrop-filter: blur(10px);
+        border: 1px solid var(--glass-border);
+        border-radius: 30px;
+        padding: 40px;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        box-shadow: var(--soft-shadow);
+    }
+
+        .glass-card:hover {
+            transform: translateY(-12px);
+            background: #ffffff;
+            box-shadow: 0 30px 60px rgba(118, 75, 162, 0.12);
+            border-color: #764ba2;
+        }
+
+    .neon-icon {
+        width: 70px;
+        height: 70px;
+        background: #f8fafc;
+        border-radius: 22px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.2rem;
+        color: #764ba2;
+        margin-bottom: 25px;
+        box-shadow: inset 0 2px 4px rgba(0,0,0,0.05), 0 10px 20px rgba(118, 75, 162, 0.1);
+    }
+
+    .cqrs-viz {
+        background: #ffffff;
+        border-radius: 40px;
+        padding: 60px;
+        border: 1px solid var(--glass-border);
+        box-shadow: var(--soft-shadow);
+        position: relative;
+        overflow: hidden;
+    }
+
+        .cqrs-viz::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 5px;
+            height: 100%;
+            background: var(--primary-grad);
+        }
+
+    .tech-pill {
+        background: #edf2f7;
+        padding: 6px 18px;
+        border-radius: 50px;
+        font-size: 0.8rem;
+        color: #4a5568;
+        font-weight: 600;
+        border: 1px solid #e2e8f0;
+    }
+
+    .area-box {
+        padding: 30px;
+        border-radius: 25px;
+        background: #ffffff;
+        border: 1px solid var(--glass-border);
+        transition: 0.3s ease;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+    }
+
+        .area-box:hover {
+            transform: scale(1.03);
+            box-shadow: var(--soft-shadow);
+        }
+
+        .area-box i {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .area-box.auth i {
+            color: #48bb78;
+        }
+
+        .area-box.user i {
+            color: #4299e1;
+        }
+
+        .area-box.admin i {
+            color: #f56565;
+        }
+
+</style>
+
+
+
+<div class="premium-header text-center">
+    <div class="container">
+        <h6 class="text-uppercase fw-bold text-primary mb-3" style="letter-spacing: 3px;">Technical Blueprint</h6>
+        <h1 class="glitch-title">وامینو</h1>
+        <p class="lead text-muted mx-auto" style="max-width: 800px; font-weight: 500;">
+            تلفیق هنر معماری Clean و قدرت CQRS در یک بستر مالی هوشمند
+        </p>
+    </div>
+</div>
+
+<div class="container pb-5">
+
+    <div class="row g-4 mb-5 mt-2">
+        <div class="col-md-6 col-lg-3">
+            <div class="glass-card h-100 text-center text-md-start">
+                <div class="neon-icon mx-auto mx-md-0"><i class="bi bi-shield-check"></i></div>
+                <h5 class="fw-bold text-dark">Domain Layer</h5>
+                <p class="text-muted small">هسته مرکزی؛ شامل قواعد پایه تجارت (Enterprise Rules) و موجودیت‌های ناب پروژه.</p>
+                <div class="tech-pill d-inline-block">Pure C# Entity</div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+            <div class="glass-card h-100 text-center text-md-start">
+                <div class="neon-icon mx-auto mx-md-0"><i class="bi bi-intersect"></i></div>
+                <h5 class="fw-bold text-dark">Contracts</h5>
+                <p class="text-muted small">پل ارتباطی؛ تعریف DTOها و اینترفیس‌هایی که کل ساختار را به هم متصل می‌کنند.</p>
+                <div class="tech-pill d-inline-block">Abstraction</div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+            <div class="glass-card h-100 text-center text-md-start">
+                <div class="neon-icon mx-auto mx-md-0"><i class="bi bi-command"></i></div>
+                <h5 class="fw-bold text-dark">Application</h5>
+                <p class="text-muted small">مغز متفکر؛ پیاده‌سازی Use Caseها با الگوهای مدرن MediatR و Fluent Validation.</p>
+                <div class="tech-pill d-inline-block">Business Logic</div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+            <div class="glass-card h-100 text-center text-md-start">
+                <div class="neon-icon mx-auto mx-md-0"><i class="bi bi-hdd-network"></i></div>
+                <h5 class="fw-bold text-dark">Infrastructure</h5>
+                <p class="text-muted small">دنیای خارج؛ تعامل با SQL Server از طریق EF Core و مدیریت سرویس‌های خارجی.</p>
+                <div class="tech-pill d-inline-block">Persistence</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="cqrs-viz my-5">
+        <div class="row align-items-center">
+            <div class="col-lg-7">
+                <h2 class="display-6 fw-bold mb-4 text-dark">تفکیک عملیات (CQRS)</h2>
+                <p class="text-muted mb-4" style="line-height: 1.8;">
+                    در سامانه وامینو، برای افزایش کارایی و امنیت، مسیر <strong>تغییر داده‌ها</strong> از مسیر <strong>خواندنی‌ها</strong> جدا شده است.
+                    این معماری اجازه می‌دهد تا سیستم در بارگذاری‌های بالا، پایداری خود را حفظ کند.
+                </p>
+                <div class="row g-3">
+                    <div class="col-6">
+                        <div class="p-3 rounded-4 bg-light border border-2 text-center">
+                            <i class="bi bi-pencil-square text-primary h3"></i>
+                            <div class="small fw-bold text-dark mt-2">Commands</div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="p-3 rounded-4 bg-light border border-2 text-center">
+                            <i class="bi bi-search text-info h3"></i>
+                            <div class="small fw-bold text-dark mt-2">Queries</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5 text-center d-none d-lg-block">
+                <div class="position-relative p-5">
+                    <div class="bg-primary opacity-10 position-absolute top-50 start-50 translate-middle rounded-circle" style="width: 250px; height: 250px;"></div>
+                    <i class="bi bi-cpu display-1 text-primary"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4 mt-5">
+        <div class="col-12 text-center mb-4">
+            <h3 class="fw-bold text-dark">بخش‌های اصلی پلتفرم</h3>
+            <div class="mx-auto bg-primary" style="width: 60px; height: 4px; border-radius: 2px;"></div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="area-box auth text-center">
+                <i class="bi bi-shield-lock-fill"></i>
+                <h5 class="fw-bold text-dark">مدیریت هویت (Auth)</h5>
+                <p class="text-muted small mb-0">احراز هویت چند مرحله‌ای و کنترل دسترسی کاربران.</p>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="area-box user text-center">
+                <i class="bi bi-person-bounding-box"></i>
+                <h5 class="fw-bold text-dark">پنل کاربری (User)</h5>
+                <p class="text-muted small mb-0">درخواست وام، بارگذاری مدارک و مدیریت ضامنین.</p>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="area-box admin text-center">
+                <i class="bi bi-kanban"></i>
+                <h5 class="fw-bold text-dark">پنل مدیریت (Admin)</h5>
+                <p class="text-muted small mb-0">بررسی درخواست‌ها، تایید نهایی و گزارشات مالی.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center mt-5 pt-5 border-top">
+        <p class="small text-muted fw-bold">Clean Architecture • CQRS • MediatR • .NET 10</p>
+        <div class="d-flex justify-content-center gap-4 h5 text-primary mt-3">
+            <i class="bi bi-code-square"></i>
+            <i class="bi bi-layers"></i>
+            <i class="bi bi-git"></i>
+        </div>
+    </div>
+</div>

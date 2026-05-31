@@ -1,8 +1,233 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿
+@using Vamino.Infrastructure.Identity.Models
+@{
+    ViewData["Title"] = "صفحه اصلی - سامانه هوشمند وامینو";
+
+    var fullName = User.FindFirst(CustomClaimTypes.FullName)?.Value;
+    fullName = string.IsNullOrWhiteSpace(fullName) ? "کاربر سیستم" : fullName.Trim();
+    var avatarText = !string.IsNullOrWhiteSpace(fullName) ? fullName.Substring(0, 1) : "ک";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<section class="hero-section text-center">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-12">
+                <h1 class="hero-title animate__animated animate__fadeInDown">آینده مالی خود را با وامینو بسازید</h1>
+                <p class="lead text-muted mb-5 animate__animated animate__fadeInUp animate__delay-1s">سامانه هوشمند مدیریت درخواست وام، معرفی ضامن و دریافت اعتبار در سریع‌ترین زمان ممکن</p>
+                <div class="d-flex justify-content-center gap-3 animate__animated animate__zoomIn animate__delay-2s">
+                    <a asp-area="Auth" asp-controller="Auth" asp-action="Login" class="btn btn-primary btn-luxury btn-auth">شروع درخواست وام</a>
+                    <a href="#how-it-works" class="btn btn-outline-dark btn-luxury">چگونه کار می‌کند؟</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="container py-5">
+    <div class="row text-center mb-5">
+        <div class="col-12">
+            <h2 class="fw-bold section-title">چرا وامینو؟</h2>
+            <p class="text-muted">مزایای استفاده از پلتفرم مدرن تسهیلات</p>
+        </div>
+    </div>
+    <div class="row g-4">
+        <div class="col-md-4 animate__animated animate__fadeInUp">
+            <div class="feature-card text-center">
+                <div class="icon-box mx-auto">
+                    <i class="bi bi-lightning-charge-fill"></i>
+                </div>
+                <h4>سرعت بالا</h4>
+                <p class="text-muted">بررسی خودکار مدارک و تأیید اولیه در کمتر از ۲۴ ساعت</p>
+            </div>
+        </div>
+        <div class="col-md-4 animate__animated animate__fadeInUp animate__delay-1s">
+            <div class="feature-card text-center">
+                <div class="icon-box mx-auto">
+                    <i class="bi bi-shield-check"></i>
+                </div>
+                <h4>امنیت تضمین شده</h4>
+                <p class="text-muted">استفاده از پروتکل‌های امنیتی پیشرفته برای حفظ اطلاعات کاربران</p>
+            </div>
+        </div>
+        <div class="col-md-4 animate__animated animate__fadeInUp animate__delay-2s">
+            <div class="feature-card text-center">
+                <div class="icon-box mx-auto">
+                    <i class="bi bi-person-check"></i>
+                </div>
+                <h4>مدیریت ضامن</h4>
+                <p class="text-muted">پنل اختصاصی برای معرفی و تأیید ضامنین به صورت کاملاً آنلاین</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="how-it-works" class="py-5 bg-light position-relative overflow-hidden">
+    <div class="container">
+        <div class="row mb-5 text-center">
+            <h2 class="fw-bold section-title">مراحل دریافت وام</h2>
+        </div>
+        <div class="row g-4 justify-content-center">
+            <div class="col-lg-3 col-md-6 position-relative mb-4 mb-lg-0">
+                <div class="step-card animate__animated animate__fadeInUp">
+                    <div class="step-number">01</div>
+                    <h5>ثبت نام</h5>
+                    <p class="small text-muted">ایجاد حساب کاربری و تکمیل پروفایل شخصی در سامانه</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 position-relative mb-4 mb-lg-0">
+                <div class="step-card animate__animated animate__fadeInUp animate__delay-1s">
+                    <div class="step-number">02</div>
+                    <h5>درخواست وام</h5>
+                    <p class="small text-muted">انتخاب مبلغ و بارگذاری مدارک لازم جهت بررسی</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 position-relative mb-4 mb-lg-0">
+                <div class="step-card animate__animated animate__fadeInUp animate__delay-2s">
+                    <div class="step-number">03</div>
+                    <h5>تأیید ضامن</h5>
+                    <p class="small text-muted">معرفی ضامنین و تأیید نهایی توسط مدیریت سیستم</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 position-relative mb-4 mb-lg-0">
+                <div class="step-card animate__animated animate__fadeInUp animate__delay-3s">
+                    <div class="step-number">04</div>
+                    <h5>واریز وجه</h5>
+                    <p class="small text-muted">تأیید نهایی ادمین و واریز مبلغ وام به حساب کاربر</p>
+                </div>
+            </div>
+        </div>
+        <div class="connector-line d-none d-lg-block"></div>
+    </div>
+    <div class="bg-graphic-left"></div>
+    <div class="bg-graphic-right"></div>
+</section>
+
+<section class="container my-5">
+    <div class="about-section">
+        <div class="row align-items-center">
+            <div class="col-md-7">
+                <h3 class="fw-bold mb-4 section-title">درباره وامینو</h3>
+                <p class="text-justify lh-lg">
+                    پروژه <strong>وامینو</strong> با هدف ساده‌سازی فرآیندهای پیچیده بانکی طراحی شده است.
+                    این سیستم با بهره‌گیری از معماری چندلایه و تکنولوژی ASP.NET Core، فضایی را فراهم آورده تا تعامل بین متقاضی وام، ضامنین و مدیریت در یک بستر کاملاً دیجیتال صورت گیرد.
+                    در این پیاده‌سازی، اصول Clean Architecture و امنیت داده‌ها در اولویت قرار گرفته است.
+                </p>
+                <ul class="list-unstyled mt-3">
+                    <li><i class="bi bi-check2-circle text-primary me-2"></i> طراحی UI/UX مدرن و واکنش‌گرا</li>
+                    <li><i class="bi bi-check2-circle text-primary me-2"></i> مدیریت سطوح دسترسی (Admin/User)</li>
+                    <li><i class="bi bi-check2-circle text-primary me-2"></i> سیستم هوشمند وضعیت‌دهی به درخواست‌ها</li>
+                    <li><i class="bi bi-check2-circle text-primary me-2"></i> فرآیند آنلاین و سریع معرفی و تأیید ضامن</li>
+                </ul>
+            </div>
+            <div class="col-md-5 text-center">
+                <img src="~/images/about-graphic.svg" alt="وامینو گرافیک" class="img-fluid animate__animated animate__zoomIn" />
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="testimonials-section py-5 bg-primary-light">
+    <div class="container">
+        <div class="row mb-5 text-center">
+            <h2 class="fw-bold section-title">مشتریان ما چه می‌گویند؟</h2>
+        </div>
+        <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="testimonial-card">
+                        <img src="~/images/user1.jpg" alt="کاربر ۱" class="testimonial-avatar">
+                        <p class="testimonial-text">"وامینو فرآیند دریافت وام را برای من فوق‌العاده آسان کرد. پشتیبانی عالی و سرعت بالا!"</p>
+                        <h5 class="testimonial-name">علی رضایی</h5>
+                        <p class="testimonial-role">کارآفرین</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="testimonial-card">
+                        <img src="~/images/user2.jpg" alt="کاربر ۲" class="testimonial-avatar">
+                        <p class="testimonial-text">"معرفی ضامن آنلاین بسیار کاربردی بود و در وقت من صرفه‌جویی زیادی کرد."</p>
+                        <h5 class="testimonial-name">مریم احمدی</h5>
+                        <p class="testimonial-role">کارمند</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="testimonial-card">
+                        <img src="~/images/user3.jpg" alt="کاربر ۳" class="testimonial-avatar">
+                        <p class="testimonial-text">"توصیه می‌کنم! پلتفرم امن و رابط کاربری ساده‌ای دارد."</p>
+                        <h5 class="testimonial-name">حسین کریمی</h5>
+                        <p class="testimonial-role">دانشجو</p>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">قبلی</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">بعدی</span>
+            </button>
+        </div>
+    </div>
+</section>
+
+<section class="container py-5">
+    <div class="row text-center mb-5">
+        <h2 class="fw-bold section-title">سوالات متداول</h2>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="accordion" id="faqAccordion">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="faqHeadingOne">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseOne" aria-expanded="true" aria-controls="faqCollapseOne">
+                            چگونه می‌توانم درخواست وام ثبت کنم؟
+                        </button>
+                    </h2>
+                    <div id="faqCollapseOne" class="accordion-collapse collapse show" aria-labelledby="faqHeadingOne" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            ابتدا باید در سامانه ثبت نام کرده و حساب کاربری خود را فعال کنید. سپس به بخش "درخواست وام" رفته و فرم مربوطه را تکمیل نمایید.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="faqHeadingTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseTwo" aria-expanded="false" aria-controls="faqCollapseTwo">
+                            فرآیند تأیید ضامن چگونه است؟
+                        </button>
+                    </h2>
+                    <div id="faqCollapseTwo" class="accordion-collapse collapse" aria-labelledby="faqHeadingTwo" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            پس از ثبت درخواست وام، شما باید اطلاعات ضامن(های) خود را وارد کنید. ضامن(ها) یک لینک تأیید دریافت می‌کنند و با ورود به پنل خود، درخواست را تأیید یا رد می‌کنند.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="faqHeadingThree">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseThree" aria-expanded="false" aria-controls="faqCollapseThree">
+                            حداکثر مبلغ وام چقدر است؟
+                        </button>
+                    </h2>
+                    <div id="faqCollapseThree" class="accordion-collapse collapse" aria-labelledby="faqHeadingThree" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            حداکثر مبلغ وام به عوامل مختلفی مانند اعتبار سنجی، وضعیت شغلی و توانایی بازپرداخت شما بستگی دارد و پس از بررسی مدارک توسط کارشناسان تعیین خواهد شد.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+    <script>
+        $(document).ready(function() {
+            $('.carousel').carousel();
+
+            $('.animate__animated').on('animationend', function() {
+                $(this).removeClass('animate__animated animate__fadeInDown animate__fadeInUp animate__zoomIn animate__delay-1s animate__delay-2s animate__delay-3s');
+            });
+        });
+    </script>
+}

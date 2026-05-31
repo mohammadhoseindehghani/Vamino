@@ -1,0 +1,80 @@
+﻿@model Vamino.Presentation.MVC.Areas.UserPanel.Models.UpdateLoanContractViewModel
+
+@{
+    ViewData["Title"] = "ویرایش قرارداد";
+}
+
+<div class="up-card">
+    <div class="up-card-header d-flex justify-content-between align-items-center">
+        <h5 class="up-card-title mb-0">ویرایش قرارداد</h5>
+        <a class="btn btn-up"
+           asp-area="UserPanel"
+           asp-controller="LoanContracts"
+           asp-action="Index">
+            <i class="bi bi-arrow-right"></i> بازگشت
+        </a>
+    </div>
+
+    <div class="up-card-body">
+        <div class="alert alert-warning up-alert mb-3">
+            <i class="bi bi-info-circle"></i>
+            <div>
+                <div class="fw-bold">توجه</div>
+                <div class="small text-muted">فقط قراردادهایی که در وضعیت «در انتظار ضامن» هستند قابل ویرایش‌اند.</div>
+            </div>
+        </div>
+
+        <form class="up-form"
+              method="post"
+              asp-area="UserPanel"
+              asp-controller="LoanContracts"
+              asp-action="Edit">
+
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="Id" />
+
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label asp-for="Title" class="form-label"></label>
+                    <input asp-for="Title" class="form-control" placeholder="مثلاً وام خرید کالا" />
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="Amount" class="form-label"></label>
+                    <input asp-for="Amount" type="number" step="1" class="form-control" placeholder="مثلاً 250000000" />
+                    <span asp-validation-for="Amount" class="text-danger"></span>
+                </div>
+
+                <div class="col-12">
+                    <label asp-for="Description" class="form-label"></label>
+                    <textarea asp-for="Description"
+                              class="form-control"
+                              rows="4"
+                              placeholder="جزئیات قرارداد..."></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
+                <div class="col-12 d-flex gap-2 justify-content-end flex-wrap">
+                    <button type="submit" class="btn btn-up primary">
+                        <i class="bi bi-save2"></i> ذخیره تغییرات
+                    </button>
+
+                    <a class="btn btn-up danger"
+                       asp-area="UserPanel"
+                       asp-controller="LoanContracts"
+                       asp-action="Delete"
+                       asp-route-id="@Model.Id">
+                        <i class="bi bi-trash3"></i> حذف قرارداد
+                    </a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

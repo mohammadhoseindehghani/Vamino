@@ -1,0 +1,67 @@
+﻿
+@using Vamino.Infrastructure.Identity.Models
+
+@{
+    var fullName =
+        User.FindFirst(CustomClaimTypes.FullName)?.Value;
+
+    fullName = string.IsNullOrWhiteSpace(fullName) ? "کاربر سیستم" : fullName.Trim();
+
+    var avatarText = fullName.Substring(0, 1);
+}
+
+
+<div class="up-brand">
+    <div class="up-brand-badge">
+        <i class="bi bi-shield-lock"></i>
+    </div>
+    <div class="up-brand-text">
+        <div class="fw-bold">پنل کاربری</div>
+        <div class="text-muted small">مدیریت وام و ضمانت</div>
+    </div>
+</div>
+
+<div class="up-usercard">
+    <div class="up-avatar">@avatarText</div>
+    <div class="up-usercard-meta">
+        <div class="fw-semibold">@fullName</div>
+        <div class="text-muted small">خوش آمدید</div>
+    </div>
+</div>
+
+<nav class="up-nav">
+    <a class="up-nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "LoanContracts" ? "active" : "")"
+       asp-area="UserPanel" asp-controller="LoanContracts" asp-action="Index">
+        <i class="bi bi-file-earmark-text"></i>
+        <span>مدیریت قراردادها</span>
+    </a>
+
+    <a class="up-nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "GuarantorRequests" ? "active" : "")"
+       asp-area="UserPanel" asp-controller="GuarantorRequests" asp-action="Index">
+        <i class="bi bi-person-check"></i>
+        <span>درخواست‌های ضمانت</span>
+    </a>
+
+    <div class="up-nav-sep"></div>
+
+    <a class="up-nav-link" href="#">
+        <i class="bi bi-question-circle"></i>
+        <span>راهنما</span>
+    </a>
+    <form asp-area="Auth" asp-controller="Auth" asp-action="Logout" method="post" style="display: inline-block;">
+        @Html.AntiForgeryToken()
+        <button type="submit" class="up-nav-link danger" style="background: none; border: none; padding: 0; cursor: pointer;">
+            <i class="bi bi-person-check"></i>
+            <span>خروج</span>
+        </button>
+    </form>
+
+
+    @* <a class="up-nav-link danger" href="#">
+        <i class="bi bi-box-arrow-right"></i>
+        <span>خروج</span>
+    </a> *@
+    
+
+
+</nav>

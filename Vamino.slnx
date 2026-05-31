@@ -9,6 +9,7 @@
   </Folder>
   <Folder Name="/src/Infrastructure/">
     <Project Path="src/Infrastructure/Vamino.Infrastructure.EfCore/Vamino.Infrastructure.EfCore.csproj" />
+    <Project Path="src/Infrastructure/Vamino.Infrastructure.Identity/Vamino.Infrastructure.Identity.csproj" Id="997308bb-e015-402e-9474-4c2ed826d9d6" />
   </Folder>
   <Folder Name="/src/Presentation/">
     <Project Path="src/Presentation/Vamino.Presentation.MVC/Vamino.Presentation.MVC.csproj" />

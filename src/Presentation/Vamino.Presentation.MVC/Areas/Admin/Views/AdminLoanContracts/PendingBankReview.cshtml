@@ -1,0 +1,119 @@
+﻿@model IEnumerable<dynamic>
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "وام‌های منتظر تایید بانک";
+}
+
+<div class="ap-filter-box">
+    <div class="row g-3">
+        <div class="col-md-4">
+            <label class="form-label fw-bold">جستجو</label>
+            <input type="text" class="form-control" placeholder="عنوان قرارداد، نام وام‌گیرنده..." />
+        </div>
+        <div class="col-md-3">
+            <label class="form-label fw-bold">بازه مبلغ</label>
+            <select class="form-select">
+                <option>همه</option>
+                <option>تا 50 میلیون</option>
+                <option>50 تا 100 میلیون</option>
+                <option>بیشتر از 100 میلیون</option>
+            </select>
+        </div>
+        <div class="col-md-5 d-flex align-items-end justify-content-md-end gap-2">
+            <button class="btn btn-ap primary">
+                <i class="bi bi-search me-1"></i>
+                اعمال فیلتر
+            </button>
+            <button class="btn btn-ap">
+                <i class="bi bi-arrow-clockwise me-1"></i>
+                بازنشانی
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="ap-card">
+    <div class="ap-card-header">
+        <h5 class="ap-card-title">قراردادهای منتظر تایید نهایی بانک</h5>
+        <span class="text-muted small">وضعیت: PendingForBankReview</span>
+    </div>
+    <div class="ap-card-body table-responsive">
+        <table class="table ap-table align-middle">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>عنوان قرارداد</th>
+                    <th>وام‌گیرنده</th>
+                    <th>مبلغ درخواستی</th>
+                    <th>تعداد ضامن</th>
+                    <th>تاریخ درخواست</th>
+                    <th>وضعیت</th>
+                    <th class="text-center">اقدامات</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>وام خرید خودرو</td>
+                    <td>محمد حسینی</td>
+                    <td>80,000,000 تومان</td>
+                    <td>2</td>
+                    <td>1404/02/08</td>
+                    <td>
+                        <span class="ap-badge info">
+                            <span class="dot"></span>
+                            منتظر تایید بانک
+                        </span>
+                    </td>
+                    <td class="text-center">
+                        <div class="d-flex justify-content-center gap-2 flex-wrap">
+                            <button class="btn btn-ap success" disabled>
+                                <i class="bi bi-check2-circle"></i>
+                                تایید
+                            </button>
+                            <button class="btn btn-ap danger" disabled>
+                                <i class="bi bi-x-circle"></i>
+                                رد
+                            </button>
+                            <button class="btn btn-ap" disabled>
+                                <i class="bi bi-eye"></i>
+                                جزئیات
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>2</td>
+                    <td>وام توسعه کسب‌وکار</td>
+                    <td>زهرا کریمی</td>
+                    <td>120,000,000 تومان</td>
+                    <td>3</td>
+                    <td>1404/02/05</td>
+                    <td>
+                        <span class="ap-badge info">
+                            <span class="dot"></span>
+                            منتظر تایید بانک
+                        </span>
+                    </td>
+                    <td class="text-center">
+                        <div class="d-flex justify-content-center gap-2 flex-wrap">
+                            <button class="btn btn-ap success" disabled>
+                                <i class="bi bi-check2-circle"></i>
+                                تایید
+                            </button>
+                            <button class="btn btn-ap danger" disabled>
+                                <i class="bi bi-x-circle"></i>
+                                رد
+                            </button>
+                            <button class="btn btn-ap" disabled>
+                                <i class="bi bi-eye"></i>
+                                جزئیات
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,72 @@
+﻿@model Vamino.Presentation.MVC.Areas.UserPanel.Models.CreateLoanContractViewModel
+
+@{
+    ViewData["Title"] = "ایجاد قرارداد جدید";
+}
+
+<div class="up-card">
+    <div class="up-card-header d-flex justify-content-between align-items-center">
+        <h5 class="up-card-title mb-0">ایجاد قرارداد</h5>
+        <a class="btn btn-up"
+           asp-area="UserPanel"
+           asp-controller="LoanContracts"
+           asp-action="Index">
+            <i class="bi bi-arrow-right"></i> بازگشت
+        </a>
+    </div>
+
+    <div class="up-card-body">
+        <form class="up-form"
+              method="post"
+              asp-area="UserPanel"
+              asp-controller="LoanContracts"
+              asp-action="Create">
+
+            @Html.AntiForgeryToken()
+
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label asp-for="Title" class="form-label"></label>
+                    <input asp-for="Title" class="form-control" placeholder="مثلاً وام خرید خودرو" />
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                    <div class="up-help">عنوان واضح انتخاب کنید تا در مدیریت قراردادها راحت‌تر باشد.</div>
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="Amount" class="form-label"></label>
+                    <input asp-for="Amount" class="form-control" placeholder="مثلاً 250000000" />
+                    <span asp-validation-for="Amount" class="text-danger"></span>
+                    <div class="up-help">حداقل ضامن‌ها بر اساس مبلغ محاسبه می‌شود.</div>
+                </div>
+
+                <div class="col-12">
+                    <label asp-for="Description" class="form-label"></label>
+                    <textarea asp-for="Description"
+                              class="form-control"
+                              rows="4"
+                              placeholder="جزئیات قرارداد..."></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
+                <div class="col-12 d-flex gap-2 justify-content-end flex-wrap mt-2">
+                    <button type="submit" class="btn btn-up primary">
+                        <i class="bi bi-check2-circle"></i> ثبت قرارداد
+                    </button>
+
+                    <a class="btn btn-up"
+                       asp-area="UserPanel"
+                       asp-controller="LoanContracts"
+                       asp-action="Index">
+                        انصراف
+                    </a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

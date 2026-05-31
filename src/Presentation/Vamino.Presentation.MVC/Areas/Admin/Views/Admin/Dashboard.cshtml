@@ -1,0 +1,77 @@
+﻿@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "داشبورد ادمین";
+}
+
+<div class="ap-stats">
+    <div class="ap-stat">
+        <div class="label">کل کاربران</div>
+        <div class="value">248</div>
+        <div class="hint">نمایش کلی از اعضای سیستم</div>
+    </div>
+
+    <div class="ap-stat">
+        <div class="label">کل ضامن‌ها</div>
+        <div class="value">96</div>
+        <div class="hint">تمام رکوردهای ضمانت ثبت شده</div>
+    </div>
+
+    <div class="ap-stat">
+        <div class="label">وام‌های منتظر تایید بانک</div>
+        <div class="value">14</div>
+        <div class="hint">نیازمند بررسی نهایی ادمین بانک</div>
+    </div>
+</div>
+
+<div class="row g-4">
+    <div class="col-lg-4">
+        <div class="ap-card h-100">
+            <div class="ap-card-header">
+                <h5 class="ap-card-title">مدیریت کاربران</h5>
+            </div>
+            <div class="ap-card-body">
+                <p class="text-muted mb-3">
+                    مشاهده لیست کامل کاربران ثبت‌شده در سامانه به همراه عملیات مدیریتی نمایشی.
+                </p>
+                <a asp-controller="AdminUsers" asp-action="Index" class="btn btn-ap primary">
+                    <i class="bi bi-people-fill me-1"></i>
+                    مشاهده کاربران
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="ap-card h-100">
+            <div class="ap-card-header">
+                <h5 class="ap-card-title">مدیریت ضامن‌ها</h5>
+            </div>
+            <div class="ap-card-body">
+                <p class="text-muted mb-3">
+                    نمایش تمام درخواست‌های ضمانت و وضعیت پاسخ هر ضامن در قراردادهای مختلف.
+                </p>
+                <a asp-controller="AdminGuarantors" asp-action="Index" class="btn btn-ap primary">
+                    <i class="bi bi-shield-check me-1"></i>
+                    مشاهده ضامن‌ها
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="ap-card h-100">
+            <div class="ap-card-header">
+                <h5 class="ap-card-title">تایید نهایی وام</h5>
+            </div>
+            <div class="ap-card-body">
+                <p class="text-muted mb-3">
+                    بررسی قراردادهایی که تمام ضامن‌های آن‌ها تایید شده‌اند و منتظر تایید نهایی بانک هستند.
+                </p>
+                <a asp-controller="AdminLoanContracts" asp-action="PendingBankReview" class="btn btn-ap primary">
+                    <i class="bi bi-cash-coin me-1"></i>
+                    مشاهده درخواست‌ها
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

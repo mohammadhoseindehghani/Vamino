@@ -1,0 +1,37 @@
+﻿@model Vamino.Presentation.MVC.Areas.Auth.Models.LoginViewModel
+@{
+    ViewData["Title"] = "ورود";
+    Layout = "_Layout";
+}
+
+<div class="auth-wrapper">
+    <div class="auth-card">
+        <div class="auth-header">
+            <h2>وامینو</h2>
+            <p>ورود به پنل کاربری</p>
+        </div>
+        <div class="auth-body">
+            <form asp-action="Login" method="post">
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+                <div class="mb-3">
+                    <label asp-for="UserNameOrEmailOrPhone" class="form-label"></label>
+                    <input asp-for="UserNameOrEmailOrPhone" class="form-control" placeholder="ایمیل یا شماره موبایل را وارد کنید" />
+                    <span asp-validation-for="UserNameOrEmailOrPhone" class="text-danger"></span>
+                </div>
+
+                <div class="mb-4">
+                    <label asp-for="Password" class="form-label"></label>
+                    <input asp-for="Password" class="form-control" placeholder="********" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100 btn-auth">ورود امن</button>
+            </form>
+            <div class="text-center mt-4">
+                <span class="text-muted">حساب ندارید؟</span>
+                <a asp-action="Register" class="text-decoration-none fw-bold text-primary">ثبت‌نام کنید</a>
+            </div>
+        </div>
+    </div>
+</div>

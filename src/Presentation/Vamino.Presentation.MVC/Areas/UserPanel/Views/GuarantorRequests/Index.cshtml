@@ -1,0 +1,320 @@
+﻿@using Vamino.Domain.LoanGuarantorAgg.Enums
+
+
+@model Vamino.Presentation.MVC.Areas.UserPanel.Models.GuarantorRequestsIndexViewModel
+
+@{
+    ViewData["Title"] = "درخواست‌های ضمانت";
+}
+
+<div class="up-card mb-3">
+    <div class="up-card-header">
+        <h5 class="up-card-title mb-0">لیست درخواست‌های ضمانت برای شما</h5>
+
+        <div class="d-flex gap-2">
+            <a asp-area="UserPanel"
+               asp-controller="GuarantorRequests"
+               asp-action="Index"
+               class="btn btn-up">
+                <i class="bi bi-arrow-repeat"></i> بروزرسانی
+            </a>
+        </div>
+    </div>
+
+    <div class="up-card-body">
+
+        @if (TempData["Success"] is not null)
+        {
+            <div class="alert alert-success">
+                @TempData["Success"]
+            </div>
+        }
+
+        @if (TempData["Error"] is not null)
+        {
+            <div class="alert alert-danger">
+                @TempData["Error"]
+            </div>
+        }
+
+        <form asp-area="UserPanel"
+              asp-controller="GuarantorRequests"
+              asp-action="Index"
+              method="get"
+              class="row g-2 mb-3">
+
+            <div class="col-md-6">
+                <input asp-for="Search"
+                       name="search"
+                       class="form-control"
+                       placeholder="جستجو بر اساس شماره درخواست، شماره قرارداد یا یادداشت..." />
+            </div>
+
+            <div class="col-md-3">
+                <select asp-for="Status"
+                        name="status"
+                        class="form-select">
+                    <option value="">همه وضعیت‌ها</option>
+                    <option value="@GuarantorStatus.Pending">در انتظار پاسخ</option>
+                    <option value="@GuarantorStatus.Approved">تایید شده</option>
+                    <option value="@GuarantorStatus.Rejected">رد شده</option>
+                </select>
+            </div>
+
+            <div class="col-md-3 d-grid">
+                <button type="submit" class="btn btn-up">
+                    <i class="bi bi-funnel"></i> اعمال فیلتر
+                </button>
+            </div>
+        </form>
+
+        <div class="table-responsive">
+            <table class="table up-table align-middle">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>قرارداد</th>
+                        <th>مبلغ</th>
+                        <th>وضعیت درخواست</th>
+                        <th>یادداشت شما</th>
+                        <th>تاریخ ایجاد</th>
+                        <th>تاریخ پاسخ</th>
+                        <th class="text-end">عملیات</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @if (Model.Items is null || !Model.Items.Any())
+                    {
+                        <tr>
+                            <td colspan="8" class="text-center text-muted py-4">
+                                هیچ درخواست ضمانتی برای نمایش وجود ندارد.
+                            </td>
+                        </tr>
+                    }
+                    else
+                    {
+                        foreach (var item in Model.Items)
+                        {
+                            <tr>
+                                <td>@item.Id</td>
+
+                                <td class="fw-semibold">
+                                    @item.ContractTitle
+                                    <div class="text-muted small">
+                                        کد قرارداد: @item.LoanContractId
+                                    </div>
+                                </td>
+
+                                <td>
+                                    @if (item.Amount.HasValue)
+                                    {
+                                        @item.Amount.Value.ToString("N0")
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">—</span>
+                                    }
+                                </td>
+
+                                <td>
+                                    @switch (item.Status)
+                                    {
+                                        case GuarantorStatus.Pending:
+                                            <span class="up-badge warning">
+                                                <span class="dot"></span>
+                                                در انتظار پاسخ
+                                            </span>
+                                            break;
+
+                                        case GuarantorStatus.Approved:
+                                            <span class="up-badge success">
+                                                <span class="dot"></span>
+                                                تایید شده
+                                            </span>
+                                            break;
+
+                                        case GuarantorStatus.Rejected:
+                                            <span class="up-badge danger">
+                                                <span class="dot"></span>
+                                                رد شده
+                                            </span>
+                                            break;
+
+                                        default:
+                                            <span class="up-badge">
+                                                <span class="dot"></span>
+                                                نامشخص
+                                            </span>
+                                            break;
+                                    }
+                                </td>
+
+                                <td class="text-muted">
+                                    @if (string.IsNullOrWhiteSpace(item.Note))
+                                    {
+                                        <span>—</span>
+                                    }
+                                    else
+                                    {
+                                        <span>@item.Note</span>
+                                    }
+                                </td>
+
+                                <td>
+                                    @item.CreatedAt.ToString("yyyy/MM/dd HH:mm")
+                                </td>
+
+                                <td>
+                                    @if (item.RespondedAt.HasValue)
+                                    {
+                                        @item.RespondedAt.Value.ToString("yyyy/MM/dd HH:mm")
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">—</span>
+                                    }
+                                </td>
+
+                                <td class="text-end">
+                                    <div class="d-flex justify-content-end gap-2 flex-wrap">
+
+                                        @if (item.CanRespond)
+                                        {
+                                            <button type="button"
+                                                    class="btn btn-up success"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#approveModal"
+                                                    data-id="@item.Id"
+                                                    data-contract="@item.ContractTitle">
+                                                <i class="bi bi-check2"></i> تایید
+                                            </button>
+
+                                            <button type="button"
+                                                    class="btn btn-up danger"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#rejectModal"
+                                                    data-id="@item.Id"
+                                                    data-contract="@item.ContractTitle">
+                                                <i class="bi bi-x-lg"></i> رد
+                                            </button>
+                                        }
+
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Approve Modal -->
+        <div class="modal fade" id="approveModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <form asp-area="UserPanel"
+                      asp-controller="GuarantorRequests"
+                      asp-action="Approve"
+                      method="post"
+                      class="modal-content">
+
+                    @Html.AntiForgeryToken()
+
+                    <input type="hidden" name="Id" id="approveRequestId" />
+
+                    <div class="modal-header">
+                        <h5 class="modal-title">تایید درخواست ضمانت</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                    </div>
+
+                    <div class="modal-body">
+                        آیا مطمئن هستید می‌خواهید این درخواست را تایید کنید؟
+
+                        <div id="approveContractTitle" class="mt-2 fw-semibold"></div>
+
+                        <div class="mt-2 text-muted small">
+                            با تایید شما، امکان انتقال وضعیت قرارداد به مرحله بررسی بانک فراهم می‌شود.
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-up" data-bs-dismiss="modal">انصراف</button>
+                        <button type="submit" class="btn btn-up success">تایید</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Reject Modal -->
+        <div class="modal fade" id="rejectModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <form asp-area="UserPanel"
+                      asp-controller="GuarantorRequests"
+                      asp-action="Reject"
+                      method="post"
+                      class="modal-content">
+
+                    @Html.AntiForgeryToken()
+
+                    <input type="hidden" name="Id" id="rejectRequestId" />
+
+                    <div class="modal-header">
+                        <h5 class="modal-title">رد درخواست ضمانت</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                    </div>
+
+                    <div class="modal-body">
+                        آیا مطمئن هستید می‌خواهید این درخواست را رد کنید؟
+
+                        <div id="rejectContractTitle" class="mt-2 fw-semibold"></div>
+
+                        <div class="mt-2 text-muted small">
+                            پس از رد درخواست، وام‌گیرنده باید ضامن دیگری معرفی کند یا وضعیت قرارداد توسط سیستم بررسی شود.
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-up" data-bs-dismiss="modal">انصراف</button>
+                        <button type="submit" class="btn btn-up danger">رد</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+       
+
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const approveModal = document.getElementById('approveModal');
+            const rejectModal = document.getElementById('rejectModal');
+
+            if (approveModal) {
+                approveModal.addEventListener('show.bs.modal', function (event) {
+                    const button = event.relatedTarget;
+
+                    const id = button.getAttribute('data-id');
+                    const contractTitle = button.getAttribute('data-contract');
+
+                    document.getElementById('approveRequestId').value = id;
+                    document.getElementById('approveContractTitle').textContent = contractTitle || '';
+                });
+            }
+
+            if (rejectModal) {
+                rejectModal.addEventListener('show.bs.modal', function (event) {
+                    const button = event.relatedTarget;
+
+                    const id = button.getAttribute('data-id');
+                    const contractTitle = button.getAttribute('data-contract');
+
+                    document.getElementById('rejectRequestId').value = id;
+                    document.getElementById('rejectContractTitle').textContent = contractTitle || '';
+                });
+            }
+        });
+    </script>
+}

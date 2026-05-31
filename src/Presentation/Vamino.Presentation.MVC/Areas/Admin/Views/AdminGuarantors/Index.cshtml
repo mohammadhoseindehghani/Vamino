@@ -1,0 +1,117 @@
+﻿@model IEnumerable<dynamic>
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "لیست کل ضامن‌ها";
+}
+
+<div class="ap-filter-box">
+    <div class="row g-3">
+        <div class="col-md-4">
+            <label class="form-label fw-bold">جستجو</label>
+            <input type="text" class="form-control" placeholder="نام ضامن، نام قرارداد، وام‌گیرنده..." />
+        </div>
+        <div class="col-md-3">
+            <label class="form-label fw-bold">وضعیت ضمانت</label>
+            <select class="form-select">
+                <option>همه وضعیت‌ها</option>
+                <option>در انتظار پاسخ</option>
+                <option>تایید شده</option>
+                <option>رد شده</option>
+            </select>
+        </div>
+        <div class="col-md-5 d-flex align-items-end justify-content-md-end gap-2">
+            <button class="btn btn-ap primary">
+                <i class="bi bi-search me-1"></i>
+                اعمال فیلتر
+            </button>
+            <button class="btn btn-ap">
+                <i class="bi bi-arrow-clockwise me-1"></i>
+                بازنشانی
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="ap-card">
+    <div class="ap-card-header">
+        <h5 class="ap-card-title">تمام رکوردهای ضمانت</h5>
+        <span class="text-muted small">نمایش متمرکز وضعیت همه ضامن‌ها</span>
+    </div>
+    <div class="ap-card-body table-responsive">
+        <table class="table ap-table align-middle">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>نام قرارداد</th>
+                    <th>وام‌گیرنده</th>
+                    <th>ضامن</th>
+                    <th>وضعیت</th>
+                    <th>زمان پاسخ</th>
+                    <th>یادداشت ضامن</th>
+                    <th class="text-center">عملیات</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>وام خرید خودرو</td>
+                    <td>محمد حسینی</td>
+                    <td>علی مرادی</td>
+                    <td>
+                        <span class="ap-badge success">
+                            <span class="dot"></span>
+                            تایید شده
+                        </span>
+                    </td>
+                    <td>1404/02/10 - 14:35</td>
+                    <td>تایید می‌گردد</td>
+                    <td class="text-center">
+                        <button class="btn btn-ap" disabled>
+                            <i class="bi bi-eye"></i>
+                        </button>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>2</td>
+                    <td>وام توسعه کسب‌وکار</td>
+                    <td>زهرا کریمی</td>
+                    <td>رضا حسنی</td>
+                    <td>
+                        <span class="ap-badge warning">
+                            <span class="dot"></span>
+                            در انتظار پاسخ
+                        </span>
+                    </td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td class="text-center">
+                        <button class="btn btn-ap" disabled>
+                            <i class="bi bi-eye"></i>
+                        </button>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>3</td>
+                    <td>وام تعمیرات منزل</td>
+                    <td>علی رضایی</td>
+                    <td>مینا کاظمی</td>
+                    <td>
+                        <span class="ap-badge danger">
+                            <span class="dot"></span>
+                            رد شده
+                        </span>
+                    </td>
+                    <td>1404/02/09 - 10:20</td>
+                    <td>امکان ضمانت ندارم</td>
+                    <td class="text-center">
+                        <button class="btn btn-ap" disabled>
+                            <i class="bi bi-eye"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
