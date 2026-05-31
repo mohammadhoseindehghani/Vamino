@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Vamino.Application.Contracts.DTOs.Identity;
 using Vamino.Application.Features.Authentication.Commands.Login;
+using Vamino.Application.Features.Authentication.Commands.Logout;
 using Vamino.Application.Features.User.Commands.RegisterUser;
 using Vamino.Presentation.MVC.Areas.Auth.Models;
 
@@ -26,7 +27,7 @@ namespace Vamino.Presentation.MVC.Areas.Auth.Controllers
         {
             if (!ModelState.IsValid)
                 return View(model);
-            var command = new LoginCommand( new LoginRequestDto(model.UserNameOrEmailOrPhone, model.Password));
+            var command = new LoginCommand(new LoginRequestDto(model.UserNameOrEmailOrPhone, model.Password));
 
             var result = await mediator.Send(command);
 
@@ -88,16 +89,14 @@ namespace Vamino.Presentation.MVC.Areas.Auth.Controllers
             return RedirectToAction(nameof(Login));
         }
 
-        [Authorize]
-        [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
-            await HttpContext.SignOutAsync();
+            var command = new LogoutCommand();
+            await mediator.Send(command);
 
             TempData["Success"] = "خروج با موفقیت انجام شد";
 
-            return RedirectToAction(nameof(Login));
+            return RedirectToAction("Index", "Home", new { area = "" });
         }
     }
 }

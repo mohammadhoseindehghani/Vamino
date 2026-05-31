@@ -48,9 +48,20 @@
         <i class="bi bi-question-circle"></i>
         <span>راهنما</span>
     </a>
+    <form asp-area="Auth" asp-controller="Auth" asp-action="Logout" method="post" style="display: inline-block;">
+        @Html.AntiForgeryToken()
+        <button type="submit" class="up-nav-link danger" style="background: none; border: none; padding: 0; cursor: pointer;">
+            <i class="bi bi-person-check"></i>
+            <span>خروج</span>
+        </button>
+    </form>
 
-    <a class="up-nav-link danger" href="#">
+
+    @* <a class="up-nav-link danger" href="#">
         <i class="bi bi-box-arrow-right"></i>
         <span>خروج</span>
-    </a>
+    </a> *@
+    
+
+
 </nav>
