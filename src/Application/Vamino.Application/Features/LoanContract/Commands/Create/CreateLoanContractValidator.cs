@@ -8,8 +8,8 @@ public class CreateLoanContractValidator : AbstractValidator<CreateLoanContractC
     {
         RuleFor(x => x.CreateLoanContractDto.Title)
             .NotEmpty().WithMessage("عنوان الزامی است.")
-            .MaximumLength(5)
-            .WithMessage("حداکثر طول عنوان 5 کاراکتر است.");
+            .MinimumLength(5)
+            .WithMessage("حداقل طول عنوان 5 کاراکتر است.");
 
         RuleFor(x => x.CreateLoanContractDto.BorrowerId)
             .GreaterThan(0).WithMessage("شناسه وام‌گیرنده نامعتبر است.");

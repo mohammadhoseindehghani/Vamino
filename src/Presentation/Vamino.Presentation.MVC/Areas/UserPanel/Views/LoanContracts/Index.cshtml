@@ -1,63 +1,39 @@
-﻿@{
+﻿@using Vamino.Application.Contracts.Utilities.Extensions
+@using Vamino.Domain.LoanContractAgg.Enums
+@model Vamino.Presentation.MVC.Areas.UserPanel.Models.LoanContractIndexViewModel
+
+@{
     ViewData["Title"] = "مدیریت قراردادها";
 }
 
 <div class="up-kpis mb-3">
     <div class="up-kpi">
         <div class="label">تعداد قراردادها</div>
-        <div class="value">—</div>
-        <div class="hint">در اینجا بعداً از مدل پر می‌شود</div>
+        <div class="value">@Model.TotalCount</div>
     </div>
     <div class="up-kpi">
         <div class="label">در انتظار ضامن</div>
-        <div class="value">—</div>
-        <div class="hint">PendingForGuarantors</div>
+        <div class="value">@Model.PendingGuarantorCount</div>
     </div>
     <div class="up-kpi">
         <div class="label">در انتظار بررسی بانک</div>
-        <div class="value">—</div>
-        <div class="hint">PendingForBankReview</div>
+        <div class="value">@Model.PendingBankReviewCount</div>
     </div>
     <div class="up-kpi">
         <div class="label">تکمیل شده</div>
-        <div class="value">—</div>
-        <div class="hint">Completed</div>
+        <div class="value">@Model.CompletedCount</div>
     </div>
 </div>
 
 <div class="up-card">
     <div class="up-card-header">
         <h5 class="up-card-title mb-0">لیست قراردادهای من</h5>
-        <div class="d-flex gap-2">
-            <a class="btn btn-up primary" asp-area="UserPanel" asp-controller="LoanContracts" asp-action="Create">
-                <i class="bi bi-plus-circle"></i>
-                ایجاد قرارداد
-            </a>
-        </div>
+        <a class="btn btn-up primary" asp-area="UserPanel" asp-controller="LoanContracts" asp-action="Create">
+            <i class="bi bi-plus-circle"></i> ایجاد قرارداد
+        </a>
     </div>
 
     <div class="up-card-body">
-        <div class="row g-2 mb-3">
-            <div class="col-md-6">
-                <input class="form-control" placeholder="جستجو در عنوان/توضیحات..." />
-            </div>
-            <div class="col-md-3">
-                <select class="form-select">
-                    <option>همه وضعیت‌ها</option>
-                    <option>در انتظار ضامن</option>
-                    <option>در انتظار بررسی بانک</option>
-                    <option>تکمیل شده</option>
-                    <option>رد شده</option>
-                    <option>لغو شده</option>
-                </select>
-            </div>
-            <div class="col-md-3 d-grid">
-                <button class="btn btn-up">
-                    <i class="bi bi-search"></i>
-                    اعمال فیلتر
-                </button>
-            </div>
-        </div>
 
         <div class="table-responsive">
             <table class="table up-table align-middle">
@@ -72,61 +48,226 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @* نمونه UI - بعداً foreach روی Model *@
-                    <tr>
-                        <td>12</td>
-                        <td class="fw-semibold">وام خرید کالا</td>
-                        <td>250,000,000</td>
-                        <td>
-                            <span class="up-badge warning"><span class="dot"></span>در انتظار ضامن</span>
-                        </td>
-                        <td>1403/02/10</td>
-                        <td class="text-end">
-                            <div class="d-flex justify-content-end gap-2 flex-wrap">
-                                <a class="btn btn-up" asp-area="UserPanel" asp-controller="LoanContracts" asp-action="Edit" asp-route-id="12">
-                                    <i class="bi bi-pencil-square"></i> ویرایش
-                                </a>
-                                <a class="btn btn-up danger" asp-area="UserPanel" asp-controller="LoanContracts" asp-action="Delete" asp-route-id="12">
-                                    <i class="bi bi-trash3"></i> حذف
-                                </a>
-                            </div>
-                        </td>
-                    </tr>
+                    @if (Model.Contracts.Any())
+                    {
+                        @foreach (var item in Model.Contracts)
+                        {
+                            <tr>
+                                <td>@item.Id</td>
+                                <td class="fw-semibold">@item.Title</td>
+                                <td>@item.Amount.ToString("N0")</td>
+                                <td>
+                                    <span class="up-badge @GetStatusClass(item.LoanStatus)">
+                                        <span class="dot"></span> @item.LoanStatus.ToFaText()
+                                    </span>
+                                </td>
+                                <td>@item.CreatedAt.ToString("yyyy/MM/dd")</td>
+                                <td class="text-end">
+                                    <div class="d-flex justify-content-end gap-2 flex-wrap">
+                                        @if (item.LoanStatus == LoanStatus.PendingForGuarantors) 
+                                        {
+                                            <a class="btn btn-up" asp-area="UserPanel" asp-controller="LoanContracts" asp-action="Edit" asp-route-id="@item.Id">
+                                                <i class="bi bi-pencil-square"></i> ویرایش
+                                            </a>
 
-                    <tr>
-                        <td>13</td>
-                        <td class="fw-semibold">وام تعمیرات منزل</td>
-                        <td>600,000,000</td>
-                        <td>
-                            <span class="up-badge info"><span class="dot"></span>در انتظار بررسی بانک</span>
-                        </td>
-                        <td>1403/02/12</td>
-                        <td class="text-end">
-                            <div class="d-flex justify-content-end gap-2 flex-wrap">
-                                <a class="btn btn-up" asp-area="UserPanel" asp-controller="LoanContracts" asp-action="Edit" asp-route-id="13">
-                                    <i class="bi bi-eye"></i> مشاهده
-                                </a>
-                            </div>
-                        </td>
-                    </tr>
+                                            <a class="btn btn-up" asp-area="UserPanel" asp-controller="LoanContracts" asp-action="AddGuarantor" asp-route-id="@item.Id">
+                                                <i class="bi bi-person-plus"></i> افزودن ضامن
+                                            </a>
 
-                    @* empty state نمونه *@
-                    @*
-                    <tr>
-                        <td colspan="6">
-                            <div class="text-center py-5">
-                                <div style="font-size:38px; opacity:.7"><i class="bi bi-inbox"></i></div>
-                                <div class="fw-bold mt-2">هنوز قراردادی ثبت نشده</div>
-                                <div class="text-muted mt-1">برای شروع، یک قرارداد جدید ایجاد کنید.</div>
-                                <div class="mt-3">
-                                    <a class="btn btn-up primary" asp-action="Create">ایجاد قرارداد</a>
+                                            <button type="button"
+                                                    class="btn btn-up"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#guarantorsModal"
+                                                    data-contract-id="@item.Id">
+                                                <i class="bi bi-people"></i> ضامن‌ها
+                                            </button>
+
+
+                                            <a class="btn btn-up danger" asp-area="UserPanel" asp-controller="LoanContracts" asp-action="Delete" asp-route-id="@item.Id">
+                                                <i class="bi bi-trash3"></i> حذف
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <a class="btn btn-up" href="#">
+                                                <i class="bi bi-eye"></i> مشاهده
+                                            </a>
+                                        }
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="6">
+                                <div class="text-center py-5">
+                                    <div style="font-size:38px; opacity:.7"><i class="bi bi-inbox"></i></div>
+                                    <div class="fw-bold mt-2">هنوز قراردادی ثبت نشده</div>
+                                    <div class="mt-3">
+                                        <a class="btn btn-up primary" asp-area="UserPanel" asp-controller="LoanContracts" asp-action="Create">ایجاد قرارداد</a>
+                                    </div>
                                 </div>
-                            </div>
-                        </td>
-                    </tr>
-                    *@
+                            </td>
+                        </tr>
+                    }
                 </tbody>
             </table>
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="guarantorsModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">لیست ضامن‌ها</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="بستن"></button>
+            </div>
+
+            <div class="modal-body">
+                <div id="guarantorsLoading" class="py-3 text-center d-none">
+                    در حال دریافت اطلاعات...
+                </div>
+
+                <div id="guarantorsError" class="alert alert-danger d-none"></div>
+
+                <div class="table-responsive">
+                    <table class="table up-table align-middle mb-0">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>شناسه کاربر</th>
+                            <th>وضعیت</th>
+                            <th>یادداشت</th>
+                            <th>تاریخ درخواست</th>
+                            <th>تاریخ پاسخ</th>
+                        </tr>
+                        </thead>
+                        <tbody id="guarantorsTbody">
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="guarantorsEmpty" class="text-center py-4 d-none">
+                    ضامنی برای این قرارداد ثبت نشده است.
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-up" data-bs-dismiss="modal">بستن</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@functions {
+    string GetStatusClass(LoanStatus status) => status switch
+    {
+        LoanStatus.PendingForGuarantors => "warning",
+        LoanStatus.PendingForBankReview => "info",
+        LoanStatus.Completed => "success",
+        LoanStatus.Rejected => "danger",
+        _ => "secondary"
+    };
+}
+
+@section Scripts {
+    <script>
+        const guarantorsModal = document.getElementById('guarantorsModal');
+
+        function escapeHtml(str) {
+            if (str === null || str === undefined) return '';
+            return String(str)
+                .replaceAll('&', '&amp;')
+                .replaceAll('<', '&lt;')
+                .replaceAll('>', '&gt;')
+                .replaceAll('"', '&quot;')
+                .replaceAll("'", '&#039;');
+        }
+
+        function toFaGuarantorStatus(status) {
+
+            switch (status) {
+                case 1:
+                case "Pending":
+                    return "در انتظار";
+                case 2:
+                case "Approved":
+                    return "تأیید شده";
+                case 3:
+                case "Rejected":
+                    return "رد شده";
+                default:
+                    return status ?? "-";
+            }
+        }
+
+        function formatDate(val) {
+            if (!val) return "-";
+            const d = new Date(val);
+            if (isNaN(d)) return escapeHtml(val);
+            return d.toLocaleString('fa-IR');
+        }
+
+        if (guarantorsModal) {
+            guarantorsModal.addEventListener('show.bs.modal', async function (event) {
+                const btn = event.relatedTarget;
+                const contractId = btn.getAttribute('data-contract-id');
+
+                const loading = document.getElementById('guarantorsLoading');
+                const errorBox = document.getElementById('guarantorsError');
+                const tbody = document.getElementById('guarantorsTbody');
+                const emptyBox = document.getElementById('guarantorsEmpty');
+
+                tbody.innerHTML = '';
+                errorBox.classList.add('d-none');
+                errorBox.innerText = '';
+                emptyBox.classList.add('d-none');
+                loading.classList.remove('d-none');
+
+                try {
+                    const url = `@Url.Action("GetGuarantors", "LoanContracts", new { area = "UserPanel" })?contractId=${contractId}`;
+                    const res = await fetch(url, { method: 'GET', headers: { 'X-Requested-With': 'XMLHttpRequest' } });
+
+                    if (!res.ok) {
+                        let msg = 'خطا در دریافت اطلاعات';
+                        try {
+                            const err = await res.json();
+                            if (err && err.message) msg = err.message;
+                        } catch { }
+                        throw new Error(msg);
+                    }
+
+                    const data = await res.json(); 
+
+                    if (!data || data.length === 0) {
+                        emptyBox.classList.remove('d-none');
+                        return;
+                    }
+
+                    for (const item of data) {
+                        tbody.insertAdjacentHTML('beforeend', `
+                            <tr>
+                                <td>${escapeHtml(item.id)}</td>
+                                <td>${escapeHtml(item.userId)}</td>
+                                <td>${escapeHtml(toFaGuarantorStatus(item.status))}</td>
+                                <td>${escapeHtml(item.note ?? '-')}</td>
+                                <td>${escapeHtml(formatDate(item.createdAt))}</td>
+                                <td>${escapeHtml(formatDate(item.respondedAt))}</td>
+                            </tr>
+                        `);
+                    }
+                } catch (e) {
+                    errorBox.innerText = e.message || 'خطای نامشخص';
+                    errorBox.classList.remove('d-none');
+                } finally {
+                    loading.classList.add('d-none');
+                }
+            });
+        }
+    </script>
+}
+

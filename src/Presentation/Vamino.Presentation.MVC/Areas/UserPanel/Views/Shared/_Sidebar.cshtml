@@ -1,7 +1,15 @@
-﻿@{
-    //اینو یادم باشه بعدا از کلیم ها بگیرم
-    var fullName = "کاربر";
+﻿
+@using Vamino.Infrastructure.Identity.Models
+
+@{
+    var fullName =
+        User.FindFirst(CustomClaimTypes.FullName)?.Value;
+
+    fullName = string.IsNullOrWhiteSpace(fullName) ? "کاربر سیستم" : fullName.Trim();
+
+    var avatarText = fullName.Substring(0, 1);
 }
+
 
 <div class="up-brand">
     <div class="up-brand-badge">
@@ -14,7 +22,7 @@
 </div>
 
 <div class="up-usercard">
-    <div class="up-avatar">@fullName.Substring(0, 1)</div>
+    <div class="up-avatar">@avatarText</div>
     <div class="up-usercard-meta">
         <div class="fw-semibold">@fullName</div>
         <div class="text-muted small">خوش آمدید</div>

@@ -53,6 +53,7 @@ public class LoanGuarantorRepository(AppDbContext context) : ILoanGuarantorRepos
         var effectedRows = await context.LoanGuarantors.Where(x => x.Id == id)
             .ExecuteUpdateAsync(setter => setter
                 .SetProperty(x => x.GuarantorStatus, GuarantorStatus.Approved)
+                .SetProperty(x => x.RespondedAt, DateTime.UtcNow)
                 .SetProperty(x => x.UpdatedAt, DateTime.UtcNow), ct);
 
         return effectedRows > 0;

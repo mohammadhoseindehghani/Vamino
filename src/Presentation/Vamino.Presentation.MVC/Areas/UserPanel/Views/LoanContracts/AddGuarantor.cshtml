@@ -1,0 +1,108 @@
+﻿@using Vamino.Domain.LoanContractAgg.Enums
+@model Vamino.Presentation.MVC.Areas.UserPanel.Models.AddLoanGuarantorViewModel
+
+@{
+    ViewData["Title"] = "افزودن ضامن";
+}
+
+<div class="up-card">
+    <div class="up-card-header">
+        <div>
+            <h5 class="up-card-title mb-0">افزودن ضامن</h5>
+            <div class="text-muted mt-1">
+                قرارداد #@Model.LoanContractId
+                @if (!string.IsNullOrWhiteSpace(Model.ContractTitle))
+                {
+                    <span> | @Model.ContractTitle</span>
+                }
+                @if (Model.ContractAmount.HasValue)
+                {
+                    <span> | مبلغ: @Model.ContractAmount.Value.ToString("N0")</span>
+                }
+            </div>
+        </div>
+
+        <a class="btn btn-up" asp-area="UserPanel" asp-controller="LoanContracts" asp-action="Index">
+            بازگشت
+        </a>
+    </div>
+
+    <div class="up-card-body">
+
+        @if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
+        {
+            <div class="alert alert-danger">@Model.ErrorMessage</div>
+        }
+        @if (!string.IsNullOrWhiteSpace(Model.SuccessMessage))
+        {
+            <div class="alert alert-success">@Model.SuccessMessage</div>
+        }
+
+        <form asp-area="UserPanel" asp-controller="LoanContracts" asp-action="AddGuarantor" method="post" class="mb-4">
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="LoanContractId" />
+
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label class="form-label">کد ملی</label>
+                    <input class="form-control" asp-for="NationalCode" />
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label">شماره موبایل</label>
+                    <input class="form-control" asp-for="PhoneNumber" />
+                </div>
+
+                <div class="col-12">
+                    <button type="submit" class="btn btn-up primary">
+                        جستجو
+                    </button>
+                    <div class="text-muted mt-2" style="font-size:13px;">
+                        فقط یکی از فیلدهای «کد ملی» یا «شماره موبایل» را وارد کنید.
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        @if (Model.FoundUser is not null)
+        {
+            <div class="up-card" style="border:1px solid rgba(0,0,0,.06);">
+                <div class="up-card-header">
+                    <h6 class="mb-0">نتیجه جستجو</h6>
+                </div>
+                <div class="up-card-body">
+
+                    <div class="row g-2">
+                        <div class="col-md-6"><strong>نام:</strong> @Model.FoundUser.FullName</div>
+                        <div class="col-md-6"><strong>کد ملی:</strong> @Model.FoundUser.NationalCode</div>
+                        <div class="col-md-6"><strong>موبایل:</strong> @Model.FoundUser.PhoneNumber</div>
+                        <div class="col-md-6"><strong>ایمیل:</strong> @Model.FoundUser.Email</div>
+                    </div>
+
+                    <hr />
+
+                    <form asp-area="UserPanel" asp-controller="LoanContracts" asp-action="CreateGuarantor" method="post">
+                        @Html.AntiForgeryToken()
+
+                        <input type="hidden" name="LoanContractId" value="@Model.LoanContractId" />
+                        <input type="hidden" name="UserId" value="@Model.FoundUser.Id" />
+
+                        <div class="mb-3">
+                            <label class="form-label">یادداشت (اختیاری)</label>
+                            <textarea class="form-control" name="Note" rows="3"></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-up primary">
+                            ارسال درخواست ضمانت
+                        </button>
+                    </form>
+
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

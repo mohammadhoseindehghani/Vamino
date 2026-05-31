@@ -71,6 +71,8 @@ public static class InfrastructureIdentityServiceRegistrations
             .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
             .AddCookie();
 
+        services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, ApplicationUserClaimsPrincipalFactory>();
+
         services.AddHttpContextAccessor();
 
         services.AddScoped<IIdentityService, IdentityService>();

@@ -9,4 +9,5 @@ public interface IUserRepository
     Task<UserSearchResultDto?> FindForGuarantorByEmailAsync(string email, CancellationToken ct);
     Task<bool> ExistsByIdAsync(int userId, CancellationToken ct);
     Task<PagedResultDto<UserListItemDto>> GetUsersAsync(GetUsersFilterDto filter, CancellationToken ct);
+    Task<UserLookupDto?> GetByIdentityIdAsync(string identityId, CancellationToken cancellationToken = default);
 }

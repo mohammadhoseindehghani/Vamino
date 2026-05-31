@@ -103,6 +103,15 @@ public class UserRepository(AppDbContext context) : IUserRepository
         return new PagedResultDto<UserListItemDto>(items, page, pageSize, total);
     }
 
+    public async Task<UserLookupDto?> GetByIdentityIdAsync(string identityId, CancellationToken cancellationToken = default)
+    {
+        return await context.Users
+            .AsNoTracking()
+            .Where(u => u.IdentityId == identityId)
+            .Select(u => new UserLookupDto(u.Id, u.FirstName, u.LastName))
+            .FirstOrDefaultAsync(cancellationToken);
+    }
+
     private static string NormalizePhone(string phone)
         => (phone ?? "").Trim();
 
