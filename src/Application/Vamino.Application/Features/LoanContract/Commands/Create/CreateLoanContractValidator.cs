@@ -15,6 +15,6 @@ public class CreateLoanContractValidator : AbstractValidator<CreateLoanContractC
             .GreaterThan(0).WithMessage("شناسه وام‌گیرنده نامعتبر است.");
 
         RuleFor(x => x.CreateLoanContractDto.Amount)
-            .GreaterThan(0).WithMessage("مبلغ باید بزرگ‌تر از صفر باشد.");
+            .GreaterThan(10).WithMessage("مبلغ باید بزرگ‌تر از صفر باشد.");
     }
 }
